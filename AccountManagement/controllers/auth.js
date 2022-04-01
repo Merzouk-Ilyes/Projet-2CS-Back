@@ -1,5 +1,12 @@
 const User = require('../models/User')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken') 
+
+
+ 
+
+
+
+
 
 exports.signup = (req, res) => {
   const user = new User(req.body)
@@ -22,7 +29,7 @@ exports.login = (req , res) => {
         err : 'this user does not exists ' , 
      })
     } 
-    if (!user.authentificate(password) ) {
+    if (!user.authenticate(password) ) {
 
       return res.status(400).json({
         //  err : 'this user does not exists ' , 
@@ -31,10 +38,15 @@ exports.login = (req , res) => {
        })
     }   
     
-    res :"ok "
-
-
-  })
+    
+     const token = jwt.sign({_id : user.id} , process.env.JWT_SECRET)
+      res.cookie('t' , token , { expire : new Date +9999 })
+      const { _id , name , email , role } = user 
+      return res.json({ token , user : { _id , email , name , role } }) 
+   
+    })
 
 }   ; 
+
+
  
