@@ -1,10 +1,10 @@
-const User = require("../models/User");
+const User = require("../models/User"); 
 
 exports.getAllAccounts = (req, res) => {
   User.find({}, function (err, docs) {
-    res.json({ docs });
+    res.json({ docs }); 
   });
-};
+}; 
 
 exports.validateEmail = async (req, res) => {
   const id = req.body.id;

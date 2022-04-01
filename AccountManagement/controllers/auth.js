@@ -11,4 +11,30 @@ exports.signup = (req, res) => {
       user,
     })
   })
-}
+} ;
+
+exports.login = (req , res) => {
+
+  const {email , password } = req.body 
+  User.findOne({email} , (err , user )  => {
+    if (err || !user ) {
+      return res.status(400).json({
+        err : 'this user does not exists ' , 
+     })
+    } 
+    if (!user.authentificate(password) ) {
+
+      return res.status(400).json({
+        //  err : 'this user does not exists ' , 
+            err : 'wrong password  ' , 
+          //  return res.json({message : "logged in "})  
+       })
+    }   
+    
+    res :"ok "
+
+
+  })
+
+}   ; 
+ 
