@@ -63,14 +63,14 @@ exports.login = (req, res) => {
   const { email, password } = req.body
   User.findOne({ email }, (err, user) => {
     if (err || !user) {
-      return res.status(400).json({
-        err: 'this user does not exists ',
+      return res.json({
+        err: 'This user does not exist',
       })
     }
     if (!user.authenticate(password)) {
-      return res.status(400).json({
+      return res.json({
         //  err : 'this user does not exists ' ,
-        err: 'wrong password  ',
+        err: 'Wrong password',
         //  return res.json({message : "logged in "})
       })
     }
