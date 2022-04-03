@@ -75,6 +75,14 @@ exports.login = (req, res) => {
       })
     }
 
-    res.json({ message: 'logod in' })
+    const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
+    res.cookie('token', token, { expire: new Date() + 9999 })
+    const { _id, name, email, role } = user
+    return res.json({ token, user: { _id, email, name, role } })
   })
+}
+
+exports.logout = (req, res) => {
+  res.clearCookie('token')
+  res.json({ messagr: 'logout secceeded' })
 }
