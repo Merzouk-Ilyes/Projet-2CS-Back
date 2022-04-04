@@ -8,7 +8,6 @@ const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf'
 
 exports.signup = async (req, res) => {
   const user = new User(req.body)
-
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -50,7 +49,7 @@ exports.signup = async (req, res) => {
   }
   await user.save((err, user) => {
     if (err) {
-      return res.status(400).json(err)
+      return res.json(err)
     }
 
     res.json({
