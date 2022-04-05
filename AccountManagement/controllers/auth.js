@@ -10,7 +10,9 @@ exports.signup = async (req, res) => {
   const user = new User(req.body)
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
     auth: {
       user: process.env.GMAIL,
       pass: process.env.PASS,
@@ -31,7 +33,7 @@ exports.signup = async (req, res) => {
     const url = `http://localhost:8000/confirmation?token=${user._id}`
 
     var mailOptions = {
-      from: '"Fred Foo 👻" <foo@example.com>',
+      from: 'AirbnbLight@airbnb.com',
       to: user.email,
       subject: 'Confirm Email',
       html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
@@ -68,9 +70,7 @@ exports.login = (req, res) => {
     }
     if (!user.authenticate(password)) {
       return res.json({
-        //  err : 'this user does not exists ' ,
         err: 'Wrong password',
-        //  return res.json({message : "logged in "})
       })
     }
 
