@@ -15,9 +15,9 @@ exports.validateEmail = async (req, res) => {
     const token = req.query.token
     const user = await User.findById(token)
     if (user) {
-      user.accountVerified = true
+      user.emailVerified = true
       await user.save()
-      res.redirect('www.google.com')
+      res.redirect('http://localhost:3000/login')
     } else {
       console.log('error number 1')
     }
