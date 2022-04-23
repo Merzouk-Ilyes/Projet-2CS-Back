@@ -37,7 +37,7 @@ const postSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      trim: true,
+     
       required: true,
     },
     PricePerNight: {
@@ -72,9 +72,8 @@ const postSchema = new mongoose.Schema(
       },
     image: {
       type: String,
-      default:
-        "https://www.kindpng.com/picc/m/9-93879_computer-icons-user-image-person-silhouette-user-silhouettes.png",
-    },
+      required:true,
+   },
     salt: String,
   },
   { timestamps: true }
