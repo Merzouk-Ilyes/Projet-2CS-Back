@@ -4,8 +4,13 @@ const postSchema = new mongoose.Schema(
     title: {
       type: String,
       trim:true,
+      required: true
+    },
+    type: {
+      type: String,
+      trim:true,
       required: true,
-      unique:true,
+      default:"cabin"
     },
     idUser: {
       type: Number,
