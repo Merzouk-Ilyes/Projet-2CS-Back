@@ -21,6 +21,23 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    rating:[{
+      ratingValue:{type: Number},
+      clientId: {type: Number},
+    }],
+    comment:[{
+      commentValue:{type: Number},
+      clientId: {type: Number},
+    }],
+    RatingTotal: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    ReviewTotal: {
+      type: Number,
+      required: true,
+    },
     city: {
       type: String,
       trim: true,
