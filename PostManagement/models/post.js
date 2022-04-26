@@ -6,6 +6,11 @@ const postSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+    type: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     idUser: {
       type: Number,
       required: true,
@@ -15,6 +20,23 @@ const postSchema = new mongoose.Schema(
       trim: true,
       required: true,
       default: false,
+    },
+    rating:[{
+      ratingValue:{type: Number},
+      clientId: {type: Number},
+    }],
+    comment:[{
+      commentValue:{type: Number},
+      clientId: {type: Number},
+    }],
+    RatingTotal: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    ReviewTotal: {
+      type: Number,
+      required: true,
     },
     city: {
       type: String,
