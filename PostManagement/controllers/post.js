@@ -1,42 +1,21 @@
-const { render } = require('express/lib/response');
-const Post = require('../models/Post')
-/* the host only can use this method when he is validated*/
-exports.addpost= async (req, res) => {
-    const post= new Post(req.body);
-    await post.save((err, post) => {
-        if (err) {
-          return res.json(err)
-        }})
+const Post = require("../models/Post");
 
-}
-/*this method could be used in the consultation page(see all posts) with no recommendation*/
-exports.findAllPosts= async (req, res) => {
-    Post.find()
-    .then((result)=>{
-        res.send(result);
+exports.addpost = async (req, res) => {
+  const post = new Post(req.body);
+  await post.save((err, post) => {
+    if (err) {
+       res.json(err);
+    } else {
+       res.json(post);
+    }
+  });
+};
+exports.findAllPosts = async (req, res) => {
+  Post.find()
+    .then((result) => {
+      res.send(result);
     })
-    .catch((err)=>{
-        res.send(err);
-    })
-}
-/* method used when see more button in clicked */
-exports.findPostById=async (req, res) => {
-    const id= req.params.id ;
-    Post.findById(id)
-    .then((result)=>{
-        res.json({result,})
-    })
-    .catch((err)=>{
-        res.send(err);
-    })
-}
-/* used by the admin to change the post status  */
-exports.UpdatePostById=async (req, res) => {
-    const id= req.params.id ;
-    const modifiedPost = Post.findById(id)
-    Post.updateOne(modifiedPost,{verified:true})
-    .then((result)=>{
-        res.json({ result, })
-    })
-    .catch((err)=>{res.send(err);})
-}
+    .catch((err) => {
+      res.send(err);
+    });
+};
