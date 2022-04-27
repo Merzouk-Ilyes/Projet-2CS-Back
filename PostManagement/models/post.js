@@ -21,22 +21,21 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    rating:[{
-      ratingValue:{type: Number},
-      clientId: {type: Number},
-    }],
-    comment:[{
-      commentValue:{type: Number},
-      clientId: {type: Number},
-    }],
+    rating: [
+      {
+        ratingValue: { type: Number },
+        clientId: { type: Number },
+      },
+    ],
+    comment: [
+      {
+        commentValue: { type: Number },
+        clientId: { type: Number },
+      },
+    ],
     RatingTotal: {
       type: Number,
-      required: true,
       default: 0,
-    },
-    ReviewTotal: {
-      type: Number,
-      required: true,
     },
     city: {
       type: String,
@@ -70,17 +69,14 @@ const postSchema = new mongoose.Schema(
     },
     RatingTotal: {
       type: Number,
-      required: true,
       default: 0,
     },
     furnish: {
       type: Boolean,
-      required: true,
       default: false,
     },
     gas: {
       type: Boolean,
-      required: true,
       default: false,
     },
     water: {
@@ -93,10 +89,12 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    image: {
-      type: String,
-      required: true,
-    },
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     salt: String,
   },
   { timestamps: true }
