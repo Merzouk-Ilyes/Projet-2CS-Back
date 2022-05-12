@@ -21,10 +21,10 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    rating: [
+    rating:[
       {
-        ratingValue: { type: Number },
-        clientId: { type: Number },
+        ratingValue: { type: Number ,required: true},
+        clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
     comment: [

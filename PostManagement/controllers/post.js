@@ -12,9 +12,16 @@ exports.addpost = async (req, res) => {
 };
 /*this method could be used in the consultation page(see all posts) with no recommendation*/
 exports.findAllPosts = async (req, res) => {
+
   Post.find()
     .then((result) => {
-      res.send(result);
+   const RatinTotalOfAllPosts = []
+    for (let index = 0; index <result.length; index++) {
+         const rating = result[index].rating;
+         console.log(rating.length);  
+         RatinTotalOfAllPosts.push(rating.length);
+      }
+      res.json({result, RatinTotalOfAllPosts});
     })
     .catch((err) => {
       res.send(err);
