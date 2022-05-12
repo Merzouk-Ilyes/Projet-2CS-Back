@@ -29,8 +29,8 @@ const postSchema = new mongoose.Schema(
     ],
     comment: [
       {
-        commentValue: { type: Number },
-        clientId: { type: Number },
+        commentValue: { type: String },
+        clientId: {type:mongoose.Schema.Types.ObjectId},
       },
     ],
     RatingTotal: {

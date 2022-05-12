@@ -18,3 +18,22 @@ Post.updateOne(modifiedPost,{$push: //using push to add a new value without losi
    })
    .catch((err)=>{res.send(err);//return err type 
 }) };
+
+
+exports.addcomment = async (req, res) => {
+    const client= req.query.id;//we should get the value from the rqst
+    const id_post = req.query.post;//we should get the value from the rqst
+    const commentvalue= req.body.commentvalue;//the value from the rating board
+    const modifiedPost = Post.findById(id_post);
+    Post.updateOne(modifiedPost,{$push: //using push to add a new value without losing the old one 
+        {
+            comment:{
+                commentValue:commentvalue,
+                clientId:client
+            }}
+        })
+       .then((result)=>{
+           res.json({msg:"comment added successfully"})//return success msg
+       })
+       .catch((err)=>{res.send(err);//return err type 
+    }) };
