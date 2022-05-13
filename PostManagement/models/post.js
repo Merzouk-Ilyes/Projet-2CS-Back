@@ -12,8 +12,8 @@ const postSchema = new mongoose.Schema(
       default: 0,
     },
     idUser: {
-      type: Number,
-      required: true,
+      type:mongoose.Schema.Types.ObjectId,
+      required:true
     },
     verified: {
       type: Boolean,
@@ -27,10 +27,19 @@ const postSchema = new mongoose.Schema(
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
-    comment: [
+    comment:[
       {
         commentValue: { type: String },
         clientId: {type:mongoose.Schema.Types.ObjectId},
+      },
+    ],
+    signal:[
+      {
+        etat: {type: String ,required: true,default:"waiting"},//etate["waiting","solved"]
+        date: { type: Date ,required: true,default:new Date()},
+        description: { type: String ,required: true},
+        reson: { type: String ,required: true},
+        clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
     RatingTotal: {
