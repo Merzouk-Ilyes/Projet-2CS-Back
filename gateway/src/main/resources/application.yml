@@ -26,3 +26,10 @@ spring:
             - RewritePath=/account/(?<s>.*), /${s}
 
           uri: http://localhost:8000/
+        - id: route1
+          predicates:
+            - Path=/posts/**
+          filters:
+            - RewritePath=/posts/(?<s>.*), /${s}
+
+          uri: http://localhost:8001/
