@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const {addpost,findAllPosts,findPostById,UpdatePostById,states,percent} = require('../controllers/post')
+const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost} = require('../controllers/post')
 const {addrating,addcomment} = require('../controllers/rating')
 
-router.get('/states',states)
+router.post('/findPostByIdHost',findPostByIdHost)
+router.get('/stats',stats)
 router.get('/percent',percent)
 router.put('/addrating',addrating)
 router.put('/addcomment',addcomment)

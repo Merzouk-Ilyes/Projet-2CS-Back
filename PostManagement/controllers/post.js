@@ -41,7 +41,19 @@ exports.findPostById=async (req, res) =>
        res.send(err);
    })
 }
+/* method used when see more button in clicked */
 
+exports.findPostByIdHost=async (req, res) => 
+{
+  const idHost =req.body.idHost;
+   Post.find({idUser:idHost})
+   .then((result)=>{
+       res.json({result})
+   })
+   .catch((err)=>{
+       res.send(err);
+   })
+}
 /* used by the admin to change the post status  */
 
 exports.UpdatePostById=async (req, res) => 
@@ -58,7 +70,7 @@ exports.UpdatePostById=async (req, res) =>
 
 /*returns how many(posts,non verified , verified, sighaled )*/
 
-exports.states = async (req, res) =>
+exports.stats = async (req, res) =>
  {
   var  statistics = [];
   //okaay first let's find how many posts we have !
