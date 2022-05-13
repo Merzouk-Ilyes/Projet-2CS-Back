@@ -45,7 +45,7 @@ exports.findPostById=async (req, res) =>
 
 exports.findPostByIdHost=async (req, res) => 
 {
-  const idHost =req.body.idHost;
+  const idHost = req.query.idHost;
    Post.find({idUser:idHost})
    .then((result)=>{
        res.json({result})
