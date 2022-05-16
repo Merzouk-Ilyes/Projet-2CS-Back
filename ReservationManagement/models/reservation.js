@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const User = require("../models/user");
 const reservationSchema = new mongoose.Schema(
   {
     startDate: {
@@ -20,6 +21,13 @@ const reservationSchema = new mongoose.Schema(
           sexe: {type:Number},
         },
       ],
+      id_user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:User
+      },
+      id_post:{
+        type:mongoose.Schema.Types.ObjectId
+      },
 },
 { timestamps: true }
 );
