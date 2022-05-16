@@ -32,7 +32,7 @@ exports.findAllPosts = async (req, res) => {
 
 exports.findPostById=async (req, res) => 
 {
-   const id= req.params.id ;
+   const id= req.params.id;
    Post.findById(id)
    .then((result)=>{
        res.json({result,})

@@ -9,7 +9,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const port = process.env.port || 8002
 
-const postRoutes = require('./routes/post')
+const reservationRoutes = require('./routes/reservation')
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -28,7 +28,7 @@ app.use(cookieParser())
 app.use(expressValidator())
 app.use(cors())
 // routes middlware
-
+app.use(reservationRoutes)
 
 //....................
 
