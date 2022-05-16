@@ -37,7 +37,7 @@ const postSchema = new mongoose.Schema(
       {
         etat: {type: String ,required: true,default:"waiting"},//etate["waiting","solved"]
         date: { type: Date ,required: true,default:new Date()},
-        description: { type: String ,required: true},
+        description: { type: String },
         reson: { type: String ,required: true},
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
