@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost,signalerpost} = require('../controllers/post')
 const {addrating,addcomment} = require('../controllers/rating')
-const {addnotification} = require('../controllers/notification')
+const {addnotification} = require('../../AccountManagement/controllers/notification')
 
 
 router.post('/addnotification',addnotification)
