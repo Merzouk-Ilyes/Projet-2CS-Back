@@ -1,4 +1,7 @@
 const Post = require("../models/Post");
+const { post } = require("../routes/post");
+const fetch = require('node-fetch');
+
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -178,3 +181,22 @@ exports.signalerpost = async (req, res) => {
      })
      .catch((err)=>{res.send(err);//return err type 
   }) };
+
+  exports.deletePost= async (req, res) => {
+    const id_post = req.query.post;
+    fetch('http://localhost:8002/PostHasReservations?idpost='+id_post)
+    .then(response => response.json())
+    .then((data) => { 
+  if(data.HasReservations == false){ 
+    Post.deleteOne({_id:id_post})
+    .then((result)=>{
+      res.json({msg:"post deleted "})//return success msg
+  })
+  .catch((err)=>{res.send(err);//return err type 
+  }) }
+  else{
+    res.json({msg:"post has reservations, it can't be deleted !"})
+  }
+})
+
+  }
