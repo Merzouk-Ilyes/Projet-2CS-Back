@@ -73,7 +73,6 @@ exports.login = (req, res) => {
         err: 'Wrong password',
       })
     }
-
     const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
     res.cookie('token', token, { expire: new Date() + 9999 })
     const { _id, name, email, role } = user
@@ -85,3 +84,4 @@ exports.logout = (req, res) => {
   res.clearCookie('token')
   res.json({ messagr: 'logout secceeded' })
 }
+

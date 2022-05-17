@@ -35,6 +35,7 @@ const postSchema = new mongoose.Schema(
     ],
     signal:[
       {
+
         etat: {type: String ,default:"waiting"},//etate["waiting","solved"]
         date: { type: Date ,default:new Date()},
         description: { type: String },
