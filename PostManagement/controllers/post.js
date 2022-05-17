@@ -1,4 +1,7 @@
 const Post = require("../models/Post");
+const { post } = require("../routes/post");
+const fetch = require('node-fetch');
+
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -157,4 +160,43 @@ exports.percent= async (req, res) =>
     res.json({statuss,percentage});
   }
 }
+//signaler post
+exports.signalerpost = async (req, res) => {
+  const id_post = req.query.post;
+  const id_user = req.query.iduser;//we should get the value from the rqst
+  const reson= req.body.reson;//the value from the rating board
+  const modifiedPost = Post.findById(id_post);
+  const description= req.body.description;
+  Post.updateOne(modifiedPost,{$push: //using push to add a new value without losing the old one 
+      {
+        signal:{
+        description: description,
+            reson: reson,
+            clientId:id_user,
+          },
+      }
+      })
+     .then((result)=>{
+         res.json({msg:"post signaler "})//return success msg
+     })
+     .catch((err)=>{res.send(err);//return err type 
+  }) };
 
+  exports.deletePost= async (req, res) => {
+    const id_post = req.query.post;
+    fetch('http://localhost:8002/PostHasReservations?idpost='+id_post)
+    .then(response => response.json())
+    .then((data) => { 
+  if(data.HasReservations == false){ 
+    Post.deleteOne({_id:id_post})
+    .then((result)=>{
+      res.json({msg:"post deleted "})//return success msg
+  })
+  .catch((err)=>{res.send(err);//return err type 
+  }) }
+  else{
+    res.json({msg:"post has reservations, it can't be deleted !"})
+  }
+})
+
+  }
