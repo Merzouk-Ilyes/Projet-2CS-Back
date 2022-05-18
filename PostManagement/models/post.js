@@ -11,8 +11,8 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    idUser: {
-      type:mongoose.Schema.Types.ObjectId,
+    idUser:{
+      type:Number,
       required:true
     },
     verified: {

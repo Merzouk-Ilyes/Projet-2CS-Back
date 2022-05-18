@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost,signalerpost,deletePost} = require('../controllers/post')
+const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost,signalerpost,deletePost,IdHostByIdPost} = require('../controllers/post')
 const {addrating,addcomment} = require('../controllers/rating')
 const {addnotification} = require('../../AccountManagement/controllers/notification')
 
 router.get('/deletePost',deletePost)
 router.post('/addnotification',addnotification)
+router.get('/IdHostByIdPost',IdHostByIdPost)
 router.post('/findPostByIdHost',findPostByIdHost)
 router.post('/signalerpost',signalerpost)
 router.get('/stats',stats)

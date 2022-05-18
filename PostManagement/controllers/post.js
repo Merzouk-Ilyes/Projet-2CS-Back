@@ -200,3 +200,13 @@ exports.signalerpost = async (req, res) => {
 })
 
   }
+
+  exports.IdHostByIdPost= async (req, res) => {
+    const id_post = req.query.post;
+    Post.find({_id:id_post})
+    .then((data) => { 
+       res.json(data);//return success msg
+  })
+  .catch((err)=>{ res.json(err)} )
+
+  }
