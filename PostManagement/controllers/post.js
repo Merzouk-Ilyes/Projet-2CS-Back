@@ -53,7 +53,7 @@ exports.findPostById = async (req, res) => {
 /* method used when see more button in clicked */
 
 exports.findPostByIdHost = async (req, res) => {
-  const idHost = req.query.idHost;
+  const idHost = req.body.idHost;
   Post.find({ idUser: idHost })
     .then((result) => {
       res.json({ result });
@@ -64,8 +64,9 @@ exports.findPostByIdHost = async (req, res) => {
 };
 /* used by the admin to change the post status  */
 
-exports.UpdatePostById = async (req, res) => {
-  const id = req.params.id;
+exports.UpdatePostStatus = async (req, res) => {
+  const id = req.body.id;
+  console.log(id)
   const modifiedPost = Post.findById(id);
   Post.updateOne(modifiedPost, { verified: true })
     .then((result) => {

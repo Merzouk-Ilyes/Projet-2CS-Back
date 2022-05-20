@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost,signalerpost,deletePost} = require('../controllers/post')
+const {addpost,findAllPosts,findPostById,UpdatePostStatus,stats,percent,findPostByIdHost,signalerpost,deletePost} = require('../controllers/post')
 const {addrating,addcomment} = require('../controllers/rating')
 const {addnotification} = require('../../AccountManagement/controllers/notification')
 
@@ -15,5 +15,5 @@ router.put('/addcomment',addcomment)
 router.post('/addpost', addpost)
 router.get('/findAllPosts',findAllPosts)
 router.get('/findPostById/:id',findPostById)
-router.patch('/UpdatePostById/:id',UpdatePostById)
+router.patch('/UpdatePostStatus',UpdatePostStatus)
 module.exports = router
