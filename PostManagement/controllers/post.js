@@ -32,7 +32,7 @@ exports.findAllPosts = async (req, res) => {
 
 exports.findPostById=async (req, res) => 
 {
-   const id= req.params.id ;
+   const id= req.params.id;
    Post.findById(id)
    .then((result)=>{
        res.json({result,})
@@ -45,7 +45,7 @@ exports.findPostById=async (req, res) =>
 
 exports.findPostByIdHost=async (req, res) => 
 {
-  const idHost =req.body.idHost;
+  const idHost = req.query.idHost;
    Post.find({idUser:idHost})
    .then((result)=>{
        res.json({result})
@@ -173,4 +173,24 @@ exports.percent= async (req, res) =>
     res.json({statuss,percentage});
   }
 }
-
+//signaler post
+exports.signalerpost = async (req, res) => {
+  const id_post = req.query.post;
+  const id_user = req.query.iduser;//we should get the value from the rqst
+  const reson= req.body.reson;//the value from the rating board
+  const modifiedPost = Post.findById(id_post);
+  const description= req.body.description;
+  Post.updateOne(modifiedPost,{$push: //using push to add a new value without losing the old one 
+      {
+        signal:{
+        description: description,
+            reson: reson,
+            clientId:id_user,
+          },
+      }
+      })
+     .then((result)=>{
+         res.json({msg:"post signaler "})//return success msg
+     })
+     .catch((err)=>{res.send(err);//return err type 
+  }) };

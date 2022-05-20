@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const crypto = require("crypto");
 const uuidv1 = require("uuid");
+const Reservation = require("../models/reservation");
 
 const userSchema = new mongoose.Schema(
   {
@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    reservations:[{type: mongoose.Schema.Types.ObjectId}],
+    reservations:[{type: mongoose.Schema.Types.ObjectId,ref:Reservation}],
     image: {
       type: String,
       default:
