@@ -50,11 +50,24 @@ exports.findPostById = async (req, res) => {
 
 };
 
-/* method used when see more button*/
+/* method used when see more button in clicked */
 
 exports.findPostByIdHost = async (req, res) => {
   const idHost = req.query.idHost;
   Post.find({ idUser: idHost })
+    .then((result) => {
+      res.json({ result });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+/* method used when see more button in clicked */
+//this method can be used to return agent's posts by id,host's posts by id .. 
+exports.findPostByIdUser = async (req, res) => {
+  const idUser = req.query.idUser;
+  Post.find({ idUser: idUser })
     .then((result) => {
       res.json({ result });
     })
