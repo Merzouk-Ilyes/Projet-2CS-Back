@@ -5,6 +5,7 @@ const notificationSchema = new mongoose.Schema(
   {
     id_host:{},
     type:{ type:Number},
+    date:{ type:Date},
     discreption:{ type:String},
 },
 { timestamps: true }

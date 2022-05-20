@@ -35,15 +35,23 @@ const postSchema = new mongoose.Schema(
     ],
     signal:[
       {
-
         etat: {type: String ,default:"waiting"},//etate["waiting","solved"]
         date: { type: Date ,default:new Date()},
         description: { type: String },
         reson: { type: String },
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
+      
     ],
     
+    feedBack:[
+      {
+        agent: {type:mongoose.Schema.Types.ObjectId},
+        description: { type: String },
+        validation:{type:Boolean},
+        date_with_host: { type: Date},
+      },
+    ], 
     city: {
       type: String,
       trim: true,

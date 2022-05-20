@@ -12,16 +12,14 @@ const GetIdHostByIdPost = (idpost) => {
          })
        }, 2000);
    });
- 
 }
-
 exports.addnotification = async (req, res) => {
     var post= req.query.post;
     var src = req.query.src;
+    var idhost = await GetIdHostByIdPost(post);
     if(src=="addreservation"){ 
     try{
-    var idhost = await GetIdHostByIdPost(post);
-    const notification = new Notification({id_host:idhost,type:0});
+    const notification = new Notification({id_host:idhost,type:1});
     await notification.save((err,notification) => {
       if (err) {
          res.json(err);
@@ -34,6 +32,36 @@ exports.addnotification = async (req, res) => {
       console.log("opssss");
     } 
    }
-    
-    
+   if (src=="verified"){
+      const notification = new Notification({id_host:idhost,type:3});
+      await notification.save((err,notification) => {
+         if (err) {
+            res.json(err);
+         } else {
+            res.json(notification);
+         }
+       });
+   }
+  /*  if(src=="declined"){
+      const notification = new Notification({id_host:idhost,type:4});
+      await notification.save((err,notification) => {
+         if (err) {
+            res.json(err);
+         } else {
+            res.json(notification);
+         }
+       });
+   } */
+   if(src=="setdate"){
+      var date= req.query.date;
+       console.log(date);
+      const notification = new Notification({id_host:idhost,type:2,date:date});
+      await notification.save((err,notification) => {
+         if (err) {
+            res.json(err);
+         } else {
+            res.json(notification);
+         }
+       });
+   } 
   };

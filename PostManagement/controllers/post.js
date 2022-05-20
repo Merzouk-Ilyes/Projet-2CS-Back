@@ -1,6 +1,5 @@
 const Post = require("../models/Post");
 const fetch = require("node-fetch");
-
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -78,8 +77,10 @@ exports.findPostByIdUser = async (req, res) => {
 /* used by the admin to change the post status  */
 
 exports.UpdatePostById = async (req, res) => {
-  const id = req.params.id;
+  var id= req.query.post;
   const modifiedPost = Post.findById(id);
+  fetch('http://localhost:8001/addnotification?post='+id+'&src=verified')
+  .then((data) => { 
   Post.updateOne(modifiedPost, { verified: true })
     .then((result) => {
       res.json({ result });
@@ -87,6 +88,10 @@ exports.UpdatePostById = async (req, res) => {
     .catch((err) => {
       res.send(err);
     });
+  })
+  .catch((err) => {
+    res.send(err);
+  });
 };
 
 /*returns how many(posts,non verified , verified, sighaled )*/
@@ -214,3 +219,31 @@ exports.deletePost = async (req, res) => {
       }
     });
 };
+
+
+// Agent methods 
+
+exports.SetDate = async (req, res) => {
+  const id_post = req.query.post;
+  const id_agent = req.query.agent;
+  const modifiedPost = Post.findById(id_post);
+  const date = req.body.date;
+  fetch('http://localhost:8001/addnotification?post='+id_post+'&date='+date+'&src=setdate')
+  .then((data) => {
+  Post.updateOne(modifiedPost, {
+      feedBack: {
+        agent:id_agent,
+        date_with_host: date,
+      },
+  })
+    .then((result) => {
+      res.json({ msg: "date seted" }); //return success msg
+    })
+    .catch((err) => {
+      res.send(err); //return err type
+    });
+  }) 
+  .catch((err) => {
+    res.send(err); //return err type
+  });
+}
