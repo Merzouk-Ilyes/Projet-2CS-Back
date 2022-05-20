@@ -49,19 +49,6 @@ exports.findPostById = async (req, res) => {
 };
 
 /* method used when see more button in clicked */
-
-exports.findPostByIdHost = async (req, res) => {
-  const idHost = req.query.idHost;
-  Post.find({ idUser: idHost })
-    .then((result) => {
-      res.json({ result });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-};
-
-/* method used when see more button in clicked */
 exports.findPostByIdHost = async (req, res) => {
   const idHost = req.body.idHost;
   Post.find({ idUser: idHost })
@@ -101,6 +88,17 @@ exports.UpdatePostStatus = async (req, res) => {
         .catch((err) => {
           res.send(err);
         });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+exports.UpdatePostById = async (req, res) => {
+  const id = req.params.id;
+  const modifiedPost = Post.findById(id);
+  Post.updateOne(modifiedPost, { verified: true })
+    .then((result) => {
+      res.json({ result });
     })
     .catch((err) => {
       res.send(err);

@@ -14,12 +14,12 @@ const {
   UpdatePostById,
   SetDate,
   UpdatePostAvailability,
-
+  UpdatePostStatus,
 } = require("../controllers/post");
 
 const { addrating, addcomment } = require("../controllers/rating");
 const {
-  addnotification,
+  addnotification
 } = require("../../AccountManagement/controllers/notification");
 
 router.get("/deletePost", deletePost);
@@ -36,10 +36,7 @@ router.get("/findPostById/:id", findPostById);
 router.patch("/UpdatePostStatus", UpdatePostStatus);
 router.patch("/UpdatePostById/:id", UpdatePostById);
 router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
-
 router.get("/IdHostByIdPost", IdHostByIdPost);
-
-//agent
 router.post("/setdate", SetDate);
 
 module.exports = router;

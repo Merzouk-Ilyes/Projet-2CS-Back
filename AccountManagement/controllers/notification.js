@@ -1,7 +1,7 @@
 
-const Notification = require("../../AccountManagement/models/notification");
+// const Notification = require("../../AccountManagement/models/notification");
 
-const Notification = require("../models/notification");
+// const Notification = require("../models/notification");
 const fetch = require('node-fetch');
 
 
@@ -26,7 +26,7 @@ exports.getNotificationByidHost = async (req , res) =>{
    })
    .catch((err)=>{
        res.send(err);
-   })
+   })}
 
 exports.test = async (req, res) => {
 
