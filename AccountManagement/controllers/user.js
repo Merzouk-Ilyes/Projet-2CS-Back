@@ -37,3 +37,8 @@ exports.update = (req, res) => {
     }
   )
 }
+exports.findHostbyId = (req, res) => {
+  const id= req.query.id
+   User.findOne(id)
+   .then
+}

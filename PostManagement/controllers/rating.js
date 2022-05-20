@@ -2,6 +2,7 @@ const Post = require("../models/Post");
 var mongoose = require('mongoose');
 const fetch = require('node-fetch');
 
+//add rating ander condition that u r already reserved at least once !!
 exports.addrating = async (req, res) => {
 const client= req.query.id;//we should get the value from the rqst
 const id_post = req.query.post;//we should get the value from the rqst
@@ -28,7 +29,6 @@ if(data.reserved== true){
 });
 };
 
-
 exports.addcomment = async (req, res) => {
     const client= req.query.id;//we should get the value from the rqst
     const id_post = req.query.post;//we should get the value from the rqst
@@ -47,11 +47,3 @@ exports.addcomment = async (req, res) => {
        .catch((err)=>{res.send(err);//return err type 
     }) };
 
-
-exports.test = async (req, res) => {
-
-
-
-    };
-    
-    

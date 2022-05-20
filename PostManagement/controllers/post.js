@@ -1,5 +1,4 @@
 const Post = require("../models/Post");
-const { post } = require("../routes/post");
 const fetch = require("node-fetch");
 
 /* the host only can use this method when he is validated*/
@@ -41,16 +40,17 @@ exports.findAllPosts = async (req, res) => {
 
 exports.findPostById = async (req, res) => {
   const id = req.params.id;
-  Post.findById(id)
-    .then((result) => {
-      res.json({ result });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+  const host = [];
+  const post =  Post.findById(id) ; 
+  fetch('http://localhost:8002/userreserved?idpost='+id_post)
+ .then(response => response.json())
+ .then((data) => { 
+ console.log(data);
+ })
+
 };
 
-/* method used when see more button in clicked */
+/* method used when see more button*/
 
 exports.findPostByIdHost = async (req, res) => {
   const idHost = req.query.idHost;
@@ -173,16 +173,16 @@ exports.signalerpost = async (req, res) => {
     });
 };
 
- 
-  exports.IdHostByIdPost= async (req, res) => {
-    const id_post = req.query.post;
-    Post.find({_id:id_post})
-    .then((data) => { 
-       res.json(data);//return success msg
-  })
-  .catch((err)=>{ res.json(err)} )
+exports.IdHostByIdPost= async (req, res) => {
+  const id_post = req.query.post;
+  Post.find({_id:id_post})
+  .then((data) => { 
+     res.json(data);//return success msg
+})
+.catch((err)=>{ res.json(err)} )
 
-  };
+};
+
 exports.deletePost = async (req, res) => {
   const id_post = req.query.post;
   fetch("http://localhost:8002/PostHasReservations?idpost=" + id_post)

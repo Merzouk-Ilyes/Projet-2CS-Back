@@ -10,7 +10,7 @@ const reservationSchema = new mongoose.Schema(
         type: Date,
         required: true,
       },
-      status: {
+      etat: {
         type: Number,
         required: true,
         default:0//0=WAITING 

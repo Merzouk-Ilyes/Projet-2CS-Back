@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema(
       default: 1,
     },
     idUser:{
-      type:Number,
+      type:mongoose.Schema.Types.ObjectId,
       required:true
     },
     verified: {
