@@ -1,7 +1,5 @@
 const Post = require("../models/Post");
-const { post } = require("../routes/post");
 const fetch = require("node-fetch");
-
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -41,7 +39,20 @@ exports.findAllPosts = async (req, res) => {
 
 exports.findPostById = async (req, res) => {
   const id = req.params.id;
-  Post.findById(id)
+  const host = [];
+  const post = Post.findById(id);
+  fetch("http://localhost:8002/userreserved?idpost=" + id_post)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
+
+/* method used when see more button in clicked */
+
+exports.findPostByIdHost = async (req, res) => {
+  const idHost = req.query.idHost;
+  Post.find({ idUser: idHost })
     .then((result) => {
       res.json({ result });
     })
@@ -51,10 +62,22 @@ exports.findPostById = async (req, res) => {
 };
 
 /* method used when see more button in clicked */
-
 exports.findPostByIdHost = async (req, res) => {
   const idHost = req.body.idHost;
   Post.find({ idUser: idHost })
+    .then((result) => {
+      res.json({ result });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+//this method can be used to return agent's posts by id,host's posts by id ..
+exports.findPostByIdUser = async (req, res) => {
+  const idUser = req.query.idUser;
+  Post.find({ idUser: idUser })
+
     .then((result) => {
       res.json({ result });
     })
@@ -66,9 +89,31 @@ exports.findPostByIdHost = async (req, res) => {
 
 exports.UpdatePostStatus = async (req, res) => {
   const id = req.body.id;
-  console.log(id)
+  console.log(id);
+
   const modifiedPost = Post.findById(id);
-  Post.updateOne(modifiedPost, { verified: true })
+  fetch("http://localhost:8001/addnotification?post=" + id + "&src=verified")
+    .then((data) => {
+      Post.updateOne(modifiedPost, { verified: true })
+        .then((result) => {
+          res.json({ result });
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+/* used by the host to change the availability of his post*/
+exports.UpdatePostAvailability = async (req, res) => {
+  const id = req.params.id;
+  const availability = req.body.availability;
+  const modifiedPost = Post.findById(id);
+
+  Post.updateOne(modifiedPost, { available: availability })
     .then((result) => {
       res.json({ result });
     })
@@ -76,22 +121,6 @@ exports.UpdatePostStatus = async (req, res) => {
       res.send(err);
     });
 };
-
-
-/* used by the host to change the availability of his post*/
-exports.UpdatePostAvailability = async (req, res) => 
-{
-   const id= req.params.id;
-   const availability = req.body.availability ; 
-   const modifiedPost = Post.findById(id) ; 
-   
-   Post.updateOne(modifiedPost,{available:availability})
-   .then((result)=>
-   {
-       res.json({ result, })
-   })
-   .catch((err)=>{res.send(err);})
-}
 
 /*returns how many(posts,non verified , verified, sighaled )*/
 
@@ -190,6 +219,17 @@ exports.signalerpost = async (req, res) => {
     });
 };
 
+exports.IdHostByIdPost = async (req, res) => {
+  const id_post = req.query.post;
+  Post.find({ _id: id_post })
+    .then((data) => {
+      res.json(data); //return success msg
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
 exports.deletePost = async (req, res) => {
   const id_post = req.query.post;
   fetch("http://localhost:8002/PostHasReservations?idpost=" + id_post)
@@ -206,5 +246,38 @@ exports.deletePost = async (req, res) => {
       } else {
         res.json({ msg: "post has reservations, it can't be deleted !" });
       }
+    });
+};
+
+// Agent methods
+
+exports.SetDate = async (req, res) => {
+  const id_post = req.query.post;
+  const id_agent = req.query.agent;
+  const modifiedPost = Post.findById(id_post);
+  const date = req.body.date;
+  fetch(
+    "http://localhost:8001/addnotification?post=" +
+      id_post +
+      "&date=" +
+      date +
+      "&src=setdate"
+  )
+    .then((data) => {
+      Post.updateOne(modifiedPost, {
+        feedBack: {
+          agent: id_agent,
+          date_with_host: date,
+        },
+      })
+        .then((result) => {
+          res.json({ msg: "date seted" }); //return success msg
+        })
+        .catch((err) => {
+          res.send(err); //return err type
+        });
+    })
+    .catch((err) => {
+      res.send(err); //return err type
     });
 };

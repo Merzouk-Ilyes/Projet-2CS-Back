@@ -5,12 +5,16 @@ const {
   addpost,
   findAllPosts,
   findPostById,
-  UpdatePostStatus,
   stats,
   percent,
   findPostByIdHost,
   signalerpost,
   deletePost,
+  IdHostByIdPost,
+  UpdatePostById,
+  SetDate,
+  UpdatePostAvailability,
+
 } = require("../controllers/post");
 
 const { addrating, addcomment } = require("../controllers/rating");
@@ -29,10 +33,13 @@ router.put("/addcomment", addcomment);
 router.post("/addpost", addpost);
 router.get("/findAllPosts", findAllPosts);
 router.get("/findPostById/:id", findPostById);
-
 router.patch("/UpdatePostStatus", UpdatePostStatus);
-
 router.patch("/UpdatePostById/:id", UpdatePostById);
 router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
+
+router.get("/IdHostByIdPost", IdHostByIdPost);
+
+//agent
+router.post("/setdate", SetDate);
 
 module.exports = router;
