@@ -1,6 +1,13 @@
 const express = require('express')
 const router = express.Router()
+
 const {addpost,findAllPosts,findPostById,stats,percent,findPostByIdHost,signalerpost,deletePost,IdHostByIdPost,UpdatePostById,SetDate } = require('../controllers/post')
+
+const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost, UpdatePostAvailability , signalerpost} = require('../controllers/post')
+
+const {addpost,findAllPosts,findPostById,UpdatePostById,stats,percent,findPostByIdHost,signalerpost,deletePost} = require('../controllers/post')
+
+
 const {addrating,addcomment} = require('../controllers/rating')
 const {addnotification} = require('../controllers/notification')
 router.get('/deletePost',deletePost)
@@ -19,5 +26,6 @@ router.get('/findPostById/:id',findPostById)
 router.patch('/UpdatePostById/:id',UpdatePostById)
 //agent
 router.post('/setdate',SetDate)
+router.patch('/UpdatePostAvailability/:id',UpdatePostAvailability)
 
 module.exports = router

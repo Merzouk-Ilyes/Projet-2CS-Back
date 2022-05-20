@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -15,6 +15,15 @@ const postSchema = new mongoose.Schema(
       type:mongoose.Schema.Types.ObjectId,
       required:true
     },
+    nameUser: {
+      type: String,
+      required: true,
+    },
+    imageUser: {
+      type: String,
+      required: true,
+    },
+
     verified: {
       type: Boolean,
       trim: true,
@@ -43,7 +52,6 @@ const postSchema = new mongoose.Schema(
       },
       
     ],
-    
     feedBack:[
       {
         agent: {type:mongoose.Schema.Types.ObjectId},
@@ -52,6 +60,18 @@ const postSchema = new mongoose.Schema(
         date_with_host: { type: Date},
       },
     ], 
+
+    RatingTotal: {
+      type: Number,
+      default: 0,
+    },
+
+    available: {
+      type: Boolean,
+      default: true,
+    },
+
+
     city: {
       type: String,
       trim: true,
@@ -110,5 +130,5 @@ const postSchema = new mongoose.Schema(
     salt: String,
   },
   { timestamps: true }
-);
-module.exports = mongoose.model("Post", postSchema);
+)
+module.exports = mongoose.model('Post', postSchema)

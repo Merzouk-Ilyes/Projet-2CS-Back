@@ -15,9 +15,10 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((result) => app.listen(port, () => {
-    console.log(`app runing on port ${port}`)
-  })
+  .then((result) =>
+    app.listen(port, () => {
+      console.log(`app runing on port ${port}`)
+    })
   )
   .catch((err) => console.log(err))
 
@@ -30,5 +31,3 @@ app.use(cors())
 // routes middlware
 app.use(postRoutes)
 //....................
-
-
