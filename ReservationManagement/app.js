@@ -7,18 +7,17 @@ const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const port = process.env.port || 8001
+const port = process.env.port || 8002
 
-const postRoutes = require('./routes/post')
+const reservationRoutes = require('./routes/reservation')
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((result) =>
-    app.listen(port, () => {
-      console.log(`app runing on port ${port}`)
-    })
+  .then((result) => app.listen(port, () => {
+    console.log(`app runing on port ${port}`)
+  })
   )
   .catch((err) => console.log(err))
 
@@ -29,5 +28,8 @@ app.use(cookieParser())
 app.use(expressValidator())
 app.use(cors())
 // routes middlware
-app.use(postRoutes)
+app.use(reservationRoutes)
+
 //....................
+
+

@@ -9,11 +9,11 @@ const postSchema = new mongoose.Schema(
     type: {
       type: Number,
       required: true,
-      default: 0,
+      default: 1,
     },
     idUser: {
-      type: Number,
-      required: true,
+      type:mongoose.Schema.Types.ObjectId,
+      required:true
     },
     nameUser: {
       type: String,
@@ -30,22 +30,39 @@ const postSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    rating: [
+    rating:[
       {
-        ratingValue: { type: Number },
-        clientId: { type: Number },
+        ratingValue: { type: Number, default: 0 },
+        clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
-    comment: [
+    comment:[
       {
-        commentValue: { type: Number },
-        clientId: { type: Number },
+        commentValue: { type: String },
+        clientId: {type:mongoose.Schema.Types.ObjectId},
       },
     ],
+    signal:[
+      {
+
+        etat: {type: String ,default:"waiting"},//etate["waiting","solved"]
+        date: { type: Date ,default:new Date()},
+        description: { type: String },
+        reson: { type: String },
+        clientId: { type:mongoose.Schema.Types.ObjectId},
+      },
+    ],
+
     RatingTotal: {
       type: Number,
       default: 0,
     },
+
+    available: {
+      type: Boolean,
+      default: true,
+    },
+
     city: {
       type: String,
       trim: true,
@@ -58,15 +75,15 @@ const postSchema = new mongoose.Schema(
     },
     nbrBeds: {
       type: Number,
-      required: true,
+     
     },
     nbrBathes: {
       type: Number,
-      required: true,
+     
     },
     space: {
       type: Number,
-      required: true,
+      
     },
     description: {
       type: String,
@@ -76,10 +93,7 @@ const postSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    RatingTotal: {
-      type: Number,
-      default: 0,
-    },
+   
     furnish: {
       type: Boolean,
       default: false,
@@ -90,12 +104,12 @@ const postSchema = new mongoose.Schema(
     },
     water: {
       type: Boolean,
-      required: true,
+      
       default: false,
     },
     electricity: {
       type: Boolean,
-      required: true,
+    
       default: false,
     },
     images: [
