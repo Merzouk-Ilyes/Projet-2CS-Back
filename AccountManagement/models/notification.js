@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const notificationSchema = new mongoose.Schema(
   {
-    id_host:{},
+    id_host: mongoose.Schema.Types.ObjectId ,
     type:{ type:Number},
     discreption:{ type:String},
 },
