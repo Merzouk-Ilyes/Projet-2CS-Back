@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema(
     type: {
       type: Number,
       required: true,
-      default: 0,
+      default: 1,
     },
     idUser: {
       type:mongoose.Schema.Types.ObjectId,
@@ -23,7 +23,7 @@ const postSchema = new mongoose.Schema(
     },
     rating:[
       {
-        ratingValue: { type: Number ,required: true},
+        ratingValue: { type: Number, default: 0 },
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
@@ -35,13 +35,15 @@ const postSchema = new mongoose.Schema(
     ],
     signal:[
       {
-        etat: {type: String ,required: true,default:"waiting"},//etate["waiting","solved"]
-        date: { type: Date ,required: true,default:new Date()},
+
+        etat: {type: String ,default:"waiting"},//etate["waiting","solved"]
+        date: { type: Date ,default:new Date()},
         description: { type: String },
-        reson: { type: String ,required: true},
+        reson: { type: String },
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
+
     RatingTotal: {
       type: Number,
       default: 0,
@@ -51,6 +53,7 @@ const postSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
     city: {
       type: String,
       trim: true,
@@ -63,15 +66,15 @@ const postSchema = new mongoose.Schema(
     },
     nbrBeds: {
       type: Number,
-      required: true,
+     
     },
     nbrBathes: {
       type: Number,
-      required: true,
+     
     },
     space: {
       type: Number,
-      required: true,
+      
     },
     description: {
       type: String,
@@ -81,10 +84,7 @@ const postSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    RatingTotal: {
-      type: Number,
-      default: 0,
-    },
+   
     furnish: {
       type: Boolean,
       default: false,
@@ -95,12 +95,12 @@ const postSchema = new mongoose.Schema(
     },
     water: {
       type: Boolean,
-      required: true,
+      
       default: false,
     },
     electricity: {
       type: Boolean,
-      required: true,
+    
       default: false,
     },
     images: [
