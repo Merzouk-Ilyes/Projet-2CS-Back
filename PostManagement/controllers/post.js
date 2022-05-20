@@ -76,6 +76,22 @@ exports.UpdatePostById = async (req, res) => {
     });
 };
 
+
+/* used by the host to change the availability of his post*/
+exports.UpdatePostAvailability = async (req, res) => 
+{
+   const id= req.params.id;
+   const availability = req.body.availability ; 
+   const modifiedPost = Post.findById(id) ; 
+   
+   Post.updateOne(modifiedPost,{available:availability})
+   .then((result)=>
+   {
+       res.json({ result, })
+   })
+   .catch((err)=>{res.send(err);})
+}
+
 /*returns how many(posts,non verified , verified, sighaled )*/
 
 exports.stats = async (req, res) => {

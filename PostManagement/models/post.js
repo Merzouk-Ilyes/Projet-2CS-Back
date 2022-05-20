@@ -43,7 +43,17 @@ const postSchema = new mongoose.Schema(
         clientId: { type:mongoose.Schema.Types.ObjectId},
       },
     ],
-    
+
+    RatingTotal: {
+      type: Number,
+      default: 0,
+    },
+
+    available: {
+      type: Boolean,
+      default: true,
+    },
+
     city: {
       type: String,
       trim: true,
