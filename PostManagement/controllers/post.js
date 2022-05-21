@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const fetch = require("node-fetch");
+const notification= require("./notification")
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -36,7 +37,6 @@ exports.findAllPosts = async (req, res) => {
 };
 
 
-/* method used when see more button in clicked */
 exports.findPostByIdHost = async (req, res) => {
   const idHost = req.body.idHost;
   Post.find({ idUser: idHost })
@@ -73,34 +73,17 @@ exports.findPostByIdUser = async (req, res) => {
 /* used by the admin to change the post status  */
 
 exports.UpdatePostStatus = async (req, res) => {
-  const id = req.body.id;
-  console.log(id);
-
-  const modifiedPost = Post.findById(id);
-  fetch("http://localhost:8001/addnotification?post=" + id + "&src=verified")
-    .then((data) => {
+  var id_post = req.body.id;
+  const modifiedPost = Post.findById(id_post);
       Post.updateOne(modifiedPost, { verified: true })
         .then((result) => {
+          notification.addnotification()
           res.json({ result });
+          notification.addnotification({"query":{"post": id_post ,"src":"verified"}});
         })
         .catch((err) => {
           res.send(err);
         });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-};
-exports.UpdatePostById = async (req, res) => {
-  const id = req.params.id;
-  const modifiedPost = Post.findById(id);
-  Post.updateOne(modifiedPost, { verified: true })
-    .then((result) => {
-      res.json({ result });
-    })
-    .catch((err) => {
-      res.send(err);
-    });
 };
 
 /* used by the host to change the availability of his post*/
@@ -108,7 +91,6 @@ exports.UpdatePostAvailability = async (req, res) => {
   const id = req.params.id;
   const availability = req.body.availability;
   const modifiedPost = Post.findById(id);
-
   Post.updateOne(modifiedPost, { available: availability })
     .then((result) => {
       res.json({ result });
@@ -117,7 +99,6 @@ exports.UpdatePostAvailability = async (req, res) => {
       res.send(err);
     });
 };
-
 /*returns how many(posts,non verified , verified, sighaled )*/
 
 exports.stats = async (req, res) => {
@@ -219,7 +200,7 @@ exports.IdHostByIdPost = async (req, res) => {
   const id_post = req.query.post;
   Post.find({ _id: id_post })
     .then((data) => {
-      res.json(data); //return success msg
+      res.json(data);
     })
     .catch((err) => {
       res.json(err);
@@ -277,3 +258,52 @@ exports.SetDate = async (req, res) => {
       res.send(err); //return err type
     });
 };
+
+
+//add feed back by agent here we r not sheckig the agent's id cause they will be filterd by id agent in the first place 
+exports.SetFeedBack= async (req, res) => {
+  const id_post = req.query.post;
+  const description = req.body.description;
+  const validation = req.body.validation;
+  const modifiedPost = Post.findById(id_post);
+  Post.updateOne(modifiedPost, {"$set": {
+    
+      "feedBack.description": description,
+      "feedBack.validation":validation
+  }}
+)
+    .then((result) => {
+      res.json({ msg: "feedback seted" }); //return success msg
+    })
+    .catch((err) => {
+      res.send(err); //return err type
+    });
+}
+exports.GetFeedBackByIdAgent= async (req, res) => {
+  const id_agent = req.query.agent;
+  Post.find({"feedBack.agent":id_agent})
+  .then((result) => {
+    res.json(result[0].feedBack); 
+  })
+  .catch((err) => {
+    res.send(err); 
+  });
+
+}
+
+exports.assignAgent= async (req, res) => {
+  const post = req.query.post;
+  const agent = req.body.agent;
+  const modifiedPost = Post.findById(post);
+  Post.updateOne(modifiedPost, {
+    $push: {
+    feedBack:{agent: agent},
+}}
+)
+.then((result) => {
+  notification.addnotification({"query":{"post":post,"src":"assignagent","agent":agent}});
+})
+.catch((err) => {
+  res.send(err); 
+});
+}

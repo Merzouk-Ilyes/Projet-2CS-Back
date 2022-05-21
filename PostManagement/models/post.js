@@ -52,15 +52,13 @@ const postSchema = new mongoose.Schema(
       },
       
     ],
-    feedBack:[
+    feedBack:
       {
         agent: {type:mongoose.Schema.Types.ObjectId},
         description: { type: String },
         validation:{type:Boolean},
         date_with_host: { type: Date},
       },
-    ], 
-
     RatingTotal: {
       type: Number,
       default: 0,
