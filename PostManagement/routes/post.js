@@ -11,10 +11,12 @@ const {
   signalerpost,
   deletePost,
   IdHostByIdPost,
-  UpdatePostById,
   SetDate,
   UpdatePostAvailability,
   UpdatePostStatus,
+  SetFeedBack,
+  GetFeedBackByIdAgent,
+  assignAgent
 } = require("../controllers/post");
 
 const { addrating, addcomment } = require("../controllers/rating");
@@ -33,10 +35,12 @@ router.put("/addcomment", addcomment);
 router.post("/addpost", addpost);
 router.get("/findAllPosts", findAllPosts);
 router.get("/findPostById/:id", findPostById);
-router.patch("/UpdatePostStatus", UpdatePostStatus);
-router.patch("/UpdatePostById/:id", UpdatePostById);
+router.post("/UpdatePostStatus", UpdatePostStatus);
 router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
 router.get("/IdHostByIdPost", IdHostByIdPost);
 router.post("/setdate", SetDate);
+router.post("/setfeedback",SetFeedBack);
+router.post("/assignagent", assignAgent);
+router.get("/getfeedbackbyidagent",GetFeedBackByIdAgent);
 
 module.exports = router;

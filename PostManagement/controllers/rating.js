@@ -15,7 +15,7 @@ exports.addrating = async (req, res) => {
         Post.updateOne(modifiedPost, {
           //using push to add a new value without losing the old one
           $push: {
-            rating: {
+            rating:{
               ratingValue: ratingvalue,
               clientId: client,
             },
