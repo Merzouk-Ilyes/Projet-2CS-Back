@@ -57,4 +57,36 @@ exports.PostHasReservations = async (req, res) => {
         res.send(err);
     })
   };
+
+
+  // get reservation by id host 
+  exports.getReservationByIdHost  =  async (req, res) => { 
+
+    const idHost = req.body.id ;
+    Reservation.find({id_host:idHost})
+    .then((result)=>{
+        res.json({result})
+    })
+    .catch((err)=>{
+        res.send(err);
+    })
+    
+    }
   
+  //change reservation status   
+  exports.ChangeReservationStatus =  async (req, res) => { 
+
+    const status = req.body.status ;
+    const idRes = req.body.idReservation ; 
+    
+  
+    const reservation = Reservation.findById(idRes) ; 
+    
+    Reservation.updateOne(reservation ,{status:status} )
+    .then((result)=>
+    {
+        res.json({ result, })
+    })
+    .catch((err)=>{res.send(err);})
+    
+    }

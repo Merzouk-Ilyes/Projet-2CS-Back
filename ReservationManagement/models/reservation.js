@@ -13,8 +13,8 @@ const reservationSchema = new mongoose.Schema(
       status: {
         type: Number,
         required: true,
-        default:0//0=WAITING 
-      },
+        default:0 //0=WAITING  
+      },  
       people:[
         {
           age: { type: Number },
