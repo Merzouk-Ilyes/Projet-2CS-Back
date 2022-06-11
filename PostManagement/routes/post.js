@@ -13,26 +13,18 @@ const {
   IdHostByIdPost,
   UpdatePostById,
   SetDate,
+  UpdatePostStatus,
+  SetFeedBack,
+  GetFeedBackByIdAgent,
+  assignAgent,
+  DeclinePostWithReason,
+  EditPost,
 } = require("../controllers/post");
 const { addrating, addcomment } = require("../controllers/rating");
 const { addnotification } = require("../controllers/notification");
-const {
-  addpost,
-  findAllPosts,
-  DeclinePostWithReason,
-  EditPost,
-  findPostById,
-  UpdatePostById,
-  stats,
-  percent,
-  findPostByIdHost,
-  signalerpost,
-  UpdatePostAvailability,
-  deletePost,
-} = require("../controllers/post");
-
 router.get("/UpdatePostById", UpdatePostById);
 router.get("/IdHostByIdPost", IdHostByIdPost);
+
 router.get("/deletePost", deletePost);
 router.post("/addnotification", addnotification);
 router.post("/findPostByIdHost", findPostByIdHost);
@@ -44,11 +36,19 @@ router.put("/addcomment", addcomment);
 router.post("/addpost", addpost);
 router.get("/findAllPosts", findAllPosts);
 router.get("/findPostById/:id", findPostById);
+
 router.patch("/UpdatePostById/:id", UpdatePostById);
 //agent
 router.post("/setdate", SetDate);
 router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
-
 router.post("/DeclinePostWithReason", DeclinePostWithReason);
 router.post("/EditPost", EditPost);
+router.post("/UpdatePostStatus", UpdatePostStatus);
+router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
+router.get("/IdHostByIdPost", IdHostByIdPost);
+router.post("/setdate", SetDate);
+router.post("/setfeedback", SetFeedBack);
+router.post("/assignagent", assignAgent);
+router.get("/getfeedbackbyidagent", GetFeedBackByIdAgent);
+
 module.exports = router;

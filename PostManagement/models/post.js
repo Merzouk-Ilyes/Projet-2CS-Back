@@ -66,6 +66,7 @@ const postSchema = new mongoose.Schema(
         date_with_host: { type: Date },
       },
     ],
+
     RatingTotal: {
       type: Number,
       default: 0,

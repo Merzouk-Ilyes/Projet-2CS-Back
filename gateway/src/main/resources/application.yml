@@ -1,18 +1,11 @@
 server:
   port: 7777
-
 logging:
   level:
     org:
       springframework:
         cloud:
           gateway: TRACE
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8888/eureka
 spring:
   application:
     name: ms-gateway
@@ -24,12 +17,16 @@ spring:
             - Path=/account/**
           filters:
             - RewritePath=/account/(?<s>.*), /${s}
-
           uri: http://localhost:8000/
-        - id: route1
+        - id: route2
           predicates:
             - Path=/posts/**
           filters:
             - RewritePath=/posts/(?<s>.*), /${s}
-
           uri: http://localhost:8001/
+        - id: route3
+          predicates:
+            - Path=/reservations/**
+          filters:
+            - RewritePath=/reservations/(?<s>.*), /${s}
+          uri: http://localhost:8002/

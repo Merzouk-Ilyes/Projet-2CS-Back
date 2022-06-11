@@ -12,6 +12,7 @@ const mongoose = require('mongoose')
 
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
 
 mongoose
   .connect(process.env.DATABASE, {
@@ -30,6 +31,7 @@ app.use(cors())
 // routes middlware
 
 app.use(authRoutes)
+app.use(adminRoutes)
 app.use(userRoutes)
 
 //....................

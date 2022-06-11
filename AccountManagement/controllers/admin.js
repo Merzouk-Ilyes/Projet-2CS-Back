@@ -6,8 +6,11 @@ const nodemailer = require('nodemailer')
 const User = require('../models/User')
 
 exports.getAllAccounts = (req, res) => {
-  User.find({}, function (err, docs) {
-    res.json({ docs })
+  User.find().then((users) => {
+    res.json(users)
+
+  }).catch((err) => {
+    console.log(err)
   })
 }
 

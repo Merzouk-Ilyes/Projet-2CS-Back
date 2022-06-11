@@ -7,9 +7,9 @@ const {
   deleteUser,
 } = require('../controllers/admin')
 
-router.get('/accounts', getAllAccounts)
 router.post('/validateEmail', validateEmail)
 router.post('/validateAccount', validateAccount)
-router.post('/deleteUser', deleteUser)
+// router.post('/deleteUser', deleteUser)
+router.get('/accounts', getAllAccounts)
 
 module.exports = router

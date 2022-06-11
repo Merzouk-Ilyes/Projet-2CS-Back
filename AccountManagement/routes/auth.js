@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { signup, login, logout } = require('../controllers/auth')
 
-const {addnotification , getNotificationByidHost} = require('../../AccountManagement/controllers/notification')
+const {getNotificationByidHost} = require('../../AccountManagement/controllers/notification')
 const {addnotification,test} = require('../controllers/notification')
 
 const {
@@ -14,6 +14,9 @@ const {
 
 
 router.post('/addnotification',addnotification)
+router.get('/test',test)
+
+
 router.get('/test',test)
 
 router.post('/signup', signup)

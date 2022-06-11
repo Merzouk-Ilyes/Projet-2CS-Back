@@ -13,18 +13,18 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
         
     }
-    @Bean
-    RouteLocator routes (RouteLocatorBuilder builder){
-        return builder.routes()
+//     @Bean
+//     RouteLocator routes (RouteLocatorBuilder builder){
+//         return builder.routes()
 
-            .route(r->
-               r.path("/account/**")
-              .filters(f->f.rewritePath("/account/(?<s>.*)","/${s}"))
-              .uri("http://localhost:8000/")
-              )
+//             .route(r->
+//                r.path("/account/**")
+//               .filters(f->f.rewritePath("/account/(?<s>.*)","/${s}"))
+//               .uri("http://localhost:8000/")
+//               )
 
-            .build();
-}
+//             .build();
+// }
 
 
 }
