@@ -1,5 +1,9 @@
 const Post = require("../models/Post");
 const fetch = require("node-fetch");
+
+const { post } = require("../routes/post");
+const fetch = require("node-fetch");
+
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
   const post = new Post(req.body);
@@ -40,13 +44,12 @@ exports.findAllPosts = async (req, res) => {
 exports.findPostById = async (req, res) => {
   const id = req.params.id;
   const host = [];
-  const post =  Post.findById(id) ; 
-  fetch('http://localhost:8002/userreserved?idpost='+id_post)
- .then(response => response.json())
- .then((data) => { 
- console.log(data);
- })
-
+  const post = Post.findById(id);
+  fetch("http://localhost:8002/userreserved?idpost=" + id_post)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
 };
 
 /* method used when see more button in clicked */
@@ -63,7 +66,8 @@ exports.findPostByIdHost = async (req, res) => {
 };
 
 /* method used when see more button in clicked */
-//this method can be used to return agent's posts by id,host's posts by id .. 
+
+//this method can be used to return agent's posts by id,host's posts by id ..
 exports.findPostByIdUser = async (req, res) => {
   const idUser = req.query.idUser;
   Post.find({ idUser: idUser })
@@ -74,13 +78,14 @@ exports.findPostByIdUser = async (req, res) => {
       res.send(err);
     });
 };
+
+l;
+
 /* used by the admin to change the post status  */
 
 exports.UpdatePostById = async (req, res) => {
-  var id= req.query.post;
+  const id = req.params.id;
   const modifiedPost = Post.findById(id);
-  fetch('http://localhost:8001/addnotification?post='+id+'&src=verified')
-  .then((data) => { 
   Post.updateOne(modifiedPost, { verified: true })
     .then((result) => {
       res.json({ result });
@@ -88,27 +93,22 @@ exports.UpdatePostById = async (req, res) => {
     .catch((err) => {
       res.send(err);
     });
-  })
-  .catch((err) => {
-    res.send(err);
-  });
 };
 
-
 /* used by the host to change the availability of his post*/
-exports.UpdatePostAvailability = async (req, res) => 
-{
-   const id= req.params.id;
-   const availability = req.body.availability ; 
-   const modifiedPost = Post.findById(id) ; 
-   
-   Post.updateOne(modifiedPost,{available:availability})
-   .then((result)=>
-   {
-       res.json({ result, })
-   })
-   .catch((err)=>{res.send(err);})
-}
+exports.UpdatePostAvailability = async (req, res) => {
+  const id = req.params.id;
+  const availability = req.body.availability;
+  const modifiedPost = Post.findById(id);
+
+  Post.updateOne(modifiedPost, { available: availability })
+    .then((result) => {
+      res.json({ result });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
 /*returns how many(posts,non verified , verified, sighaled )*/
 
@@ -207,14 +207,15 @@ exports.signalerpost = async (req, res) => {
     });
 };
 
-exports.IdHostByIdPost= async (req, res) => {
+exports.IdHostByIdPost = async (req, res) => {
   const id_post = req.query.post;
-  Post.find({_id:id_post})
-  .then((data) => { 
-     res.json(data);//return success msg
-})
-.catch((err)=>{ res.json(err)} )
-
+  Post.find({ _id: id_post })
+    .then((data) => {
+      res.json(data); //return success msg
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 exports.deletePost = async (req, res) => {
@@ -236,30 +237,104 @@ exports.deletePost = async (req, res) => {
     });
 };
 
-
-// Agent methods 
+// Agent methods
 
 exports.SetDate = async (req, res) => {
   const id_post = req.query.post;
   const id_agent = req.query.agent;
   const modifiedPost = Post.findById(id_post);
   const date = req.body.date;
-  fetch('http://localhost:8001/addnotification?post='+id_post+'&date='+date+'&src=setdate')
-  .then((data) => {
-  Post.updateOne(modifiedPost, {
-      feedBack: {
-        agent:id_agent,
-        date_with_host: date,
-      },
-  })
-    .then((result) => {
-      res.json({ msg: "date seted" }); //return success msg
+  fetch(
+    "http://localhost:8001/addnotification?post=" +
+      id_post +
+      "&date=" +
+      date +
+      "&src=setdate"
+  )
+    .then((data) => {
+      Post.updateOne(modifiedPost, {
+        feedBack: {
+          agent: id_agent,
+          date_with_host: date,
+        },
+      })
+        .then((result) => {
+          res.json({ msg: "date seted" }); //return success msg
+        })
+        .catch((err) => {
+          res.send(err); //return err type
+        });
     })
     .catch((err) => {
       res.send(err); //return err type
     });
-  }) 
-  .catch((err) => {
-    res.send(err); //return err type
-  });
-}
+};
+
+// decline a poste then send a notification to the  concerned user
+exports.DeclinePostWithReason = async (req, res) => {
+  const idPost = req.body.idPost;
+  const idUser = req.body.idUser;
+  const declineReason = req.body.declineReason;
+
+  let notification = {
+    id_host: idUser,
+    type: 2,
+    discreption: declineReason,
+  };
+
+  const declinedPost = Post.findById(idPost);
+
+  Post.updateOne(declinedPost, {
+    $set: { verified: 3, declineReason: declineReason },
+  })
+    .then((result) => {
+      res.json({ result });
+      fetch("http://localhost:8000/addnotification", {
+        method: "POST",
+        body: JSON.stringify(notification),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.EditPost = async (req, res) => {
+  const idPost = req.body.idPost;
+  const editable = req.body.editable;
+  const PricePerNight = req.body.PricePerNight;
+  const title = req.body.title;
+  const description = req.body.description;
+
+  if (editable == true) {
+    const EditablePost = Post.findById(idPost);
+
+    Post.updateOne(EditablePost, {
+      $set: {
+        PricePerNight: PricePerNight,
+        title: title,
+        description: description,
+      },
+    })
+      .then((result) => {
+        res.json({ result });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } else {
+    const EditablePost = Post.findById(idPost);
+
+    Post.updateOne(EditablePost, { PricePerNight: PricePerNight })
+      .then((result) => {
+        res.json({ result });
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+};
