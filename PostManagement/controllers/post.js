@@ -1,7 +1,6 @@
 const Post = require("../models/Post");
 const fetch = require("node-fetch");
 const { post } = require("../routes/post");
-const fetch = require("node-fetch");
 const notification = require("./notification");
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
@@ -87,7 +86,7 @@ exports.findPostByIdUser = async (req, res) => {
     });
 };
 
-l;
+
 
 /* used by the admin to change the post status  */
 
@@ -96,7 +95,7 @@ exports.UpdatePostStatus = async (req, res) => {
   const modifiedPost = Post.findById(id_post);
   Post.updateOne(modifiedPost, { verified: true })
     .then((result) => {
-      notification.addnotification();
+      // notification.addnotification();
       res.json({ result });
       notification.addnotification({
         query: { post: id_post, src: "verified" },
@@ -106,7 +105,17 @@ exports.UpdatePostStatus = async (req, res) => {
       res.send(err);
     });
 };
-
+exports.UpdatePostById = async (req, res) => {
+  const id = req.params.id;
+  const modifiedPost = Post.findById(id);
+  Post.updateOne(modifiedPost, { verified: true })
+    .then((result) => {
+      res.json({ result });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 /* used by the host to change the availability of his post*/
 exports.UpdatePostAvailability = async (req, res) => {
   const id = req.params.id;
@@ -245,20 +254,20 @@ exports.IdHostByIdPost = async (req, res) => {
 };
 
 exports.deletePost = async (req, res) => {
-  const id_post = req.query.post;
+  const id_post = req.body.post;
   fetch("http://localhost:8002/PostHasReservations?idpost=" + id_post)
     .then((response) => response.json())
     .then((data) => {
       if (data.HasReservations == false) {
         Post.deleteOne({ _id: id_post })
           .then((result) => {
-            res.json({ msg: "post deleted " }); //return success msg
+            res.json({ deleted: true }); //return success msg
           })
           .catch((err) => {
             res.send(err); //return err type
           });
       } else {
-        res.json({ msg: "post has reservations, it can't be deleted !" });
+        res.json({ deleted: false }); //return success msg;
       }
     });
 };
@@ -396,7 +405,7 @@ exports.GetFeedBackByIdAgent = async (req, res) => {
 };
 
 exports.assignAgent = async (req, res) => {
-  const post = req.query.post;
+  const post = req.body.post;
   const agent = req.body.agent;
   const modifiedPost = Post.findById(post);
   Post.updateOne(modifiedPost, {
@@ -408,6 +417,7 @@ exports.assignAgent = async (req, res) => {
       notification.addnotification({
         query: { post: post, src: "assignagent", agent: agent },
       });
+      res.send(result)
     })
     .catch((err) => {
       res.send(err);

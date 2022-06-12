@@ -1,4 +1,4 @@
-// const User = require('../models/user')
+const User = require('../models/User')
 
 exports.userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -37,8 +37,15 @@ exports.update = (req, res) => {
     }
   );
 };
-// exports.findHostbyId = (req, res) => {
-//   const id= req.query.id
-//    User.findOne(id)
-//    .then
-// }
+
+
+
+exports.getAgents = (req, res) => {
+  
+  User.find({role:1}).then((users) => {
+    res.json(users);
+
+  }).catch(err => {
+    console.error(err);
+  })
+}

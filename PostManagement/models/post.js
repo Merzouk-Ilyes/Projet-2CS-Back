@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema(
     },
     idUser: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
     },
 
     nameUser: {
@@ -22,7 +22,8 @@ const postSchema = new mongoose.Schema(
     },
     imageUser: {
       type: String,
-      required: true,
+      default:"https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+
     },
 
     // not verefied 0  ---- verefied 1 ----- declined 2

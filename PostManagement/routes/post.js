@@ -25,7 +25,7 @@ const { addnotification } = require("../controllers/notification");
 router.get("/UpdatePostById", UpdatePostById);
 router.get("/IdHostByIdPost", IdHostByIdPost);
 
-router.get("/deletePost", deletePost);
+router.post("/deletePost", deletePost);
 router.post("/addnotification", addnotification);
 router.post("/findPostByIdHost", findPostByIdHost);
 router.post("/signalerpost", signalerpost);
@@ -48,7 +48,7 @@ router.patch("/UpdatePostAvailability/:id", UpdatePostAvailability);
 router.get("/IdHostByIdPost", IdHostByIdPost);
 router.post("/setdate", SetDate);
 router.post("/setfeedback", SetFeedBack);
-router.post("/assignagent", assignAgent);
+router.post("/assignAgent", assignAgent);
 router.get("/getfeedbackbyidagent", GetFeedBackByIdAgent);
 
 module.exports = router;

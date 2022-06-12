@@ -4,13 +4,14 @@ const Post = require("../models/Post");
 //since there are so many types of notifications and to make the code more clean we'll set a group of functions to hndl these types ! 
 const GetIdHostByIdPost = (idpost) => {
    return new Promise((resolve, reject) => {
-      setTimeout(() => { 
+    
 
          Post.find({_id:idpost})
          .then((result) => {
+      
             return resolve(result[0].idUser);
          })
-       }, 2000);
+      
    });
 }
 exports.addnotification = async (req, res) => {
@@ -18,6 +19,7 @@ const post = req.query.post;
 console.log("the req is : " + req.query.post);
 const src = req.query.src;
    var idhost = await GetIdHostByIdPost(post);
+   console.log("idhost=>"+ idhost)
     if(src=="addreservation"){ 
     try{
     const notification = new Notification({id_host:idhost,type:1});
@@ -40,7 +42,8 @@ const src = req.query.src;
          if (err) {
             res.json(err);
          } else {
-            res.json(notification);
+            console.log(notification);
+            // res.json(notification);
          }
        });
    }
@@ -50,7 +53,7 @@ const src = req.query.src;
          if (err) {
             res.json(err);
          } else {
-            res.json(notification);
+           console.log(notification);
          }
        });
    } 
@@ -62,7 +65,8 @@ const src = req.query.src;
          if (err) {
             res.json(err);
          } else {
-            res.json(notification);
+            // res.json(notification);
+            console.log(notification)
          }
        });
    }  
