@@ -6,12 +6,13 @@ const nodemailer = require('nodemailer')
 const User = require('../models/User')
 
 exports.getAllAccounts = (req, res) => {
-  User.find().then((users) => {
-    res.json(users)
-
-  }).catch((err) => {
-    console.log(err)
-  })
+  User.find()
+    .then((users) => {
+      res.json(users)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 const EMAIL_SECRET = 'asdf1093KMnzxcvnkljvasdu09123nlasdasdf'
@@ -53,13 +54,14 @@ exports.forgetPassword = async (req, res) => {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
-      secure: true, // use SSL
+      secure: true,
       auth: {
-        user: process.env.GMAIL,
-        pass: process.env.PASS,
+        type: 'OAuth2',
+        user: 'medzino85@gmail.com',
+        accessToken:
+          'ya29.a0ARrdaM-ltbBS2VLK1ccIYSQVpnqhVRbUqXAKHzGFBGgihSILDnMKKegnqov8NMdr-1kNHbsEwLNt8OPONDsGnVCNc4cAm07k5-yRfHjMnRZ--aRPbs7v5XTaO2GKS1dNTNuzakcihTBtETqvbEq3eDmmmF25',
       },
     })
-
     try {
       const secret = process.env.JWT_SECRET + user.password
       const payload = {

@@ -12,10 +12,12 @@ exports.signup = async (req, res) => {
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true, // use SSL
+    secure: true,
     auth: {
-      user: process.env.GMAIL,
-      pass: process.env.PASS,
+      type: 'OAuth2',
+      user: 'medzino85@gmail.com',
+      accessToken:
+        'ya29.a0ARrdaM-ltbBS2VLK1ccIYSQVpnqhVRbUqXAKHzGFBGgihSILDnMKKegnqov8NMdr-1kNHbsEwLNt8OPONDsGnVCNc4cAm07k5-yRfHjMnRZ--aRPbs7v5XTaO2GKS1dNTNuzakcihTBtETqvbEq3eDmmmF25',
     },
   })
 
@@ -75,7 +77,7 @@ exports.login = (req, res) => {
     }
     const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
     res.cookie('token', token, { expire: new Date() + 9999 })
-    return res.json({ token, user: { user} })
+    return res.json({ token, user: { user } })
   })
 }
 
