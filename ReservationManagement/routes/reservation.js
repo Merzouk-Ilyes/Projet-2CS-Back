@@ -1,11 +1,20 @@
 const express = require('express')
-const router = express.Router()
-const {addreservation,UserReserved,PostHasReservations,deletereservation , getReservationByIdHost , ChangeReservationStatus } = require('../controllers/reservation')
-router.post('/addreservation',addreservation)
-router.post('/deletereservation',deletereservation)
-router.get('/userreserved',UserReserved)
-router.get('/PostHasReservations',PostHasReservations)
-router.get('/getReservationByIdHost',getReservationByIdHost)
+const Notification = require('../../AccountManagement/models/notification')
 
-router.post('/ChangeReservationStatus',ChangeReservationStatus)
+const router = express.Router()
+const {
+  addreservation,
+  UserReserved,
+  PostHasReservations,
+  deletereservation,
+  getReservationByIdHost,
+  ChangeReservationStatus,
+} = require('../controllers/reservation')
+router.post('/addreservation', addreservation)
+router.post('/deletereservation', deletereservation)
+router.get('/userreserved', UserReserved)
+router.get('/PostHasReservations', PostHasReservations)
+router.get('/getReservationByIdHost', getReservationByIdHost)
+
+router.post('/ChangeReservationStatus', ChangeReservationStatus)
 module.exports = router

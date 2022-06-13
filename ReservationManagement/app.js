@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const logger = require('morgan')
+const Notification = require('../AccountManagement/models/notification')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -15,9 +16,10 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then((result) => app.listen(port, () => {
-    console.log(`app runing on port ${port}`)
-  })
+  .then((result) =>
+    app.listen(port, () => {
+      console.log(`app runing on port ${port}`)
+    })
   )
   .catch((err) => console.log(err))
 
@@ -31,5 +33,3 @@ app.use(cors())
 app.use(reservationRoutes)
 
 //....................
-
-
