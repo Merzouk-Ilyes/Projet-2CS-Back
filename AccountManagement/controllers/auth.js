@@ -84,4 +84,3 @@ exports.logout = (req, res) => {
   res.clearCookie('token')
   res.json({ messagr: 'logout secceeded' })
 }
-

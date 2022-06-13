@@ -20,7 +20,10 @@
     "express-validator": "^5.3.1",
     "mongoose": "^6.3.1",
     "morgan": "^1.10.0",
-    "node-fetch": "2.0",
-    "nodemon": "^2.0.15"
+    "node-fetch": "^2.0.0",
+    "nodemon": "^2.0.15",
+    "raccoon": "^0.2.8",
+    "redis": "^4.1.0",
+    "redis-server": "^1.2.2"
   }
 }
