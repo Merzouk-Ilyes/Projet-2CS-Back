@@ -8,7 +8,7 @@ exports.addreservation = async (req, res) => {
   const datedb = req.body.startDate
   const datefn = req.body.endDate
   const people = req.body.people
-  var post = req.query.post
+  var post = req.body.id_post
   console.log(iduser)
   const reservation = new Reservation({
     startDate: datedb,
@@ -17,19 +17,13 @@ exports.addreservation = async (req, res) => {
     id_user: iduser,
     id_post: post,
   })
-  fetch(
-    'http://localhost:8001/addnotification?post=' + post + '&src=addreservation'
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      reservation
-        .save()
-        .then((result) => {
-          res.json(result)
-        })
-        .catch((err) => {
-          res.send(err)
-        })
+  reservation
+    .save()
+    .then((result) => {
+      res.json(result)
+    })
+    .catch((err) => {
+      res.send(err)
     })
 }
 

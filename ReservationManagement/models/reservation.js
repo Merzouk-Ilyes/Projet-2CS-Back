@@ -26,7 +26,7 @@ const reservationSchema = new mongoose.Schema(
       ref: User,
     },
     id_post: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
     },
   },
   { timestamps: true }
