@@ -49,9 +49,7 @@ exports.addcomment = async (req, res) => {
       },
     },
   })
-    .then((result) => {
-      res.json({ msg: 'comment added successfully' }) //return success msg
-    })
+    .then((result) => {})
     .catch((err) => {
       res.send(err) //return err type
     })

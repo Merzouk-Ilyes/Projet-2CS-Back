@@ -1,18 +1,29 @@
 const Reservation = require("../models/reservation");
-
+const fetch = require('node-fetch');
+//add reservation with a notification type 0 
 exports.addreservation = async (req, res) => {
-  const reservation = new Reservation(req.body);
-  
-  await reservation.save((err, post) => {
-    if (err) {
-       res.json(err);
-    } else {
-       res.json(post);
-    }
-  });
-};
+    var iduser= req.query.user;
+    const datedb=req.body.startDate;
+    const datefn=req.body.endDate;
+    const people=req.body.people;
+    var post= req.query.post;
+    console.log(iduser);
+    const reservation = new Reservation({startDate:datedb,endDate:datefn,people:people,id_user:iduser,id_post:post});
+    fetch('http://localhost:8001/addnotification?post='+post+'&src=addreservation')
+    .then(response => response.json())
+    .then((data) => { 
+     reservation.save()
+     .then((result)=>{
+        res.json(result)
+     })
+     .catch((err)=>{
+         res.send(err);
+     })}
+     )
+  };
+
+//delete reservation 
 exports.deletereservation = async (req, res) => {
-   const reservation = new Reservation();
    const idreservation= req.query.reservation;
  Reservation.deleteOne({_id:idreservation})
  .then((result)=>{
@@ -21,8 +32,6 @@ exports.deletereservation = async (req, res) => {
 .catch((err)=>{
     res.send(err);
 })
-
-
   };
 //this method tell us if the user has been reserved in this post before
 exports.UserReserved= async (req, res) => {
@@ -42,8 +51,9 @@ exports.UserReserved= async (req, res) => {
     })
   };
   
-  //this method tell us if the user has been reserved in this post before
-exports.PostHasReservations = async (req, res) => {
+//this method tell us if the user has been reserved in this post before
+exports.PostHasReservations = async (req, res) => 
+{
     const idpost= req.query.idpost;
     Reservation.find({id_post:idpost})
     .then((result)=>{
@@ -57,4 +67,36 @@ exports.PostHasReservations = async (req, res) => {
         res.send(err);
     })
   };
+
+
+  // get reservation by id host 
+  exports.getReservationByIdHost  =  async (req, res) => { 
+
+    const idHost = req.body.id ;
+    Reservation.find({id_host:idHost})
+    .then((result)=>{
+        res.json({result})
+    })
+    .catch((err)=>{
+        res.send(err);
+    })
+    
+    }
   
+  //change reservation status   
+  exports.ChangeReservationStatus =  async (req, res) => { 
+
+    const status = req.body.status ;
+    const idRes = req.body.idReservation ; 
+    
+  
+    const reservation = Reservation.findById(idRes) ; 
+    
+    Reservation.updateOne(reservation ,{status:status} )
+    .then((result)=>
+    {
+        res.json({ result, })
+    })
+    .catch((err)=>{res.send(err);})
+    
+    }

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -12,44 +12,59 @@ const postSchema = new mongoose.Schema(
       default: 1,
     },
     idUser: {
-      type:mongoose.Schema.Types.ObjectId,
-      required:true
+      type: mongoose.Schema.Types.ObjectId,
+      // required: true,
     },
+
     nameUser: {
       type: String,
       required: true,
     },
     imageUser: {
       type: String,
-      required: true,
+      default:"https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+
     },
+
+    // not verefied 0  ---- verefied 1 ----- declined 2
 
     verified: {
-      type: Boolean,
+      type: Number,
       trim: true,
       required: true,
-      default: false,
+      default: 0,
     },
-    rating:[
+
+    declineReason: {
+      type: String,
+    },
+    rating: [
       {
         ratingValue: { type: Number, default: 0 },
-        clientId: { type:mongoose.Schema.Types.ObjectId},
+        clientId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
-    comment:[
+    comment: [
       {
         commentValue: { type: String },
-        clientId: {type:mongoose.Schema.Types.ObjectId},
+        clientId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
-    signal:[
+    signal: [
       {
-
-        etat: {type: String ,default:"waiting"},//etate["waiting","solved"]
-        date: { type: Date ,default:new Date()},
+        etat: { type: String, default: "waiting" }, //etate["waiting","solved"]
+        date: { type: Date, default: new Date() },
         description: { type: String },
         reson: { type: String },
-        clientId: { type:mongoose.Schema.Types.ObjectId},
+        clientId: { type: mongoose.Schema.Types.ObjectId },
+      },
+    ],
+    feedBack: [
+      {
+        agent: { type: mongoose.Schema.Types.ObjectId },
+        description: { type: String },
+        validation: { type: Boolean },
+        date_with_host: { type: Date },
       },
     ],
 
@@ -62,7 +77,6 @@ const postSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-
     city: {
       type: String,
       trim: true,
@@ -75,15 +89,12 @@ const postSchema = new mongoose.Schema(
     },
     nbrBeds: {
       type: Number,
-     
     },
     nbrBathes: {
       type: Number,
-     
     },
     space: {
       type: Number,
-      
     },
     description: {
       type: String,
@@ -93,7 +104,7 @@ const postSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-   
+
     furnish: {
       type: Boolean,
       default: false,
@@ -104,12 +115,12 @@ const postSchema = new mongoose.Schema(
     },
     water: {
       type: Boolean,
-      
+
       default: false,
     },
     electricity: {
       type: Boolean,
-    
+
       default: false,
     },
     images: [
@@ -121,5 +132,5 @@ const postSchema = new mongoose.Schema(
     salt: String,
   },
   { timestamps: true }
-)
-module.exports = mongoose.model('Post', postSchema)
+);
+module.exports = mongoose.model("Post", postSchema);

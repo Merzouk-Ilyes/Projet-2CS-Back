@@ -1,5 +1,7 @@
 const Notification = require('../../AccountManagement/models/notification')
 
+const Notification = require('../models/notification')
+
 const fetch = require('node-fetch')
 
 exports.addnotification = async (req, res) => {

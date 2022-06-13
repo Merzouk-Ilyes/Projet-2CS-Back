@@ -7,18 +7,24 @@ raccoon.config.className = 'Post'
 raccoon.config.numOfRecStore = 30
 
 const {
+  stats,
   addpost,
   findAllPosts,
-  findPostById,
-  UpdatePostById,
-  deletePost,
-  stats,
-  percent,
-  likePost,
-  findPostByIdHost,
-  getRecomndations,
   UpdatePostAvailability,
+  findPostById,
+  percent,
+  findPostByIdHost,
   signalerpost,
+  deletePost,
+  IdHostByIdPost,
+  UpdatePostById,
+  SetDate,
+  UpdatePostStatus,
+  SetFeedBack,
+  GetFeedBackByIdAgent,
+  assignAgent,
+  DeclinePostWithReason,
+  EditPost,
 } = require('../controllers/post')
 
 const { addrating, addcomment } = require('../controllers/rating')
@@ -42,6 +48,20 @@ router.get('/findAllPosts', findAllPosts)
 router.get('/findPostById/:id', findPostById)
 router.patch('/UpdatePostById/:id', UpdatePostById)
 router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
+
+//agent
+//agent
+router.post('/setdate', SetDate)
+router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
+router.post('/DeclinePostWithReason', DeclinePostWithReason)
+router.post('/EditPost', EditPost)
+router.post('/UpdatePostStatus', UpdatePostStatus)
+router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
+router.get('/IdHostByIdPost', IdHostByIdPost)
+router.post('/setdate', SetDate)
+router.post('/setfeedback', SetFeedBack)
+router.post('/assignAgent', assignAgent)
+router.get('/getfeedbackbyidagent', GetFeedBackByIdAgent)
 
 router.get('/rec/:id', (req, res) => {
   console.log(`the result is `)
