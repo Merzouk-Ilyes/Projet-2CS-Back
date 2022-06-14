@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
       type: 'OAuth2',
       user: 'medzino85@gmail.com',
       accessToken:
-        'ya29.a0ARrdaM-ltbBS2VLK1ccIYSQVpnqhVRbUqXAKHzGFBGgihSILDnMKKegnqov8NMdr-1kNHbsEwLNt8OPONDsGnVCNc4cAm07k5-yRfHjMnRZ--aRPbs7v5XTaO2GKS1dNTNuzakcihTBtETqvbEq3eDmmmF25',
+      'ya29.a0ARrdaM8z-GPzzlJo5cBWpm7W0NSigqyLGvGrCpjPf0mqvLrADWW5K3RiwMkzCRi_QI3e9oGm4m2H7FtctAZKuriKXy56VJXxPtJDkGrC_xt0drA06RJJW9prPa_HLdXCRWxbcnwQSPlBPTG-dcIg9je6LEx7hQ'
     },
   })
 
@@ -75,9 +75,15 @@ exports.login = (req, res) => {
         err: 'Wrong password',
       })
     }
-    const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
-    res.cookie('token', token, { expire: new Date() + 9999 })
-    return res.json({ token, user: { user } })
+    if(user.emailVerified) {
+
+      const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
+      res.cookie('token', token, { expire: new Date() + 9999 })
+      return res.json({ token, user: { user } })
+    }
+    return res.json({
+      err: 'Email is not verified',
+    })
   })
 }
 

@@ -41,7 +41,7 @@ exports.validateAccount = async (req, res) => {
     message: 'Account is validated',
   })
 }
-
+ 
 exports.forgetPassword = async (req, res) => {
   const { email } = req.body
   User.findOne({ email }, async (err, user) => {
@@ -59,9 +59,9 @@ exports.forgetPassword = async (req, res) => {
         type: 'OAuth2',
         user: 'medzino85@gmail.com',
         accessToken:
-          'ya29.a0ARrdaM-ltbBS2VLK1ccIYSQVpnqhVRbUqXAKHzGFBGgihSILDnMKKegnqov8NMdr-1kNHbsEwLNt8OPONDsGnVCNc4cAm07k5-yRfHjMnRZ--aRPbs7v5XTaO2GKS1dNTNuzakcihTBtETqvbEq3eDmmmF25',
+        'ya29.a0ARrdaM8z-GPzzlJo5cBWpm7W0NSigqyLGvGrCpjPf0mqvLrADWW5K3RiwMkzCRi_QI3e9oGm4m2H7FtctAZKuriKXy56VJXxPtJDkGrC_xt0drA06RJJW9prPa_HLdXCRWxbcnwQSPlBPTG-dcIg9je6LEx7hQ'
       },
-    })
+    }) 
     try {
       const secret = process.env.JWT_SECRET + user.password
       const payload = {
