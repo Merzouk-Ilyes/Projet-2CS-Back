@@ -75,9 +75,14 @@ exports.login = (req, res) => {
         err: 'Wrong password',
       })
     }
-    const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
-    res.cookie('token', token, { expire: new Date() + 9999 })
-    return res.json({ token, user: { user } })
+    if (user.emailVerified) {
+      const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
+      res.cookie('token', token, { expire: new Date() + 9999 })
+      return res.json({ token, user: { user } })
+    }
+    return res.json({
+      err: 'Email is not verified',
+    })
   })
 }
 

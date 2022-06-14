@@ -59,14 +59,14 @@ const postSchema = new mongoose.Schema(
         clientId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
-    feedBack: [
+    feedBack: 
       {
         agent: { type: mongoose.Schema.Types.ObjectId },
         description: { type: String },
         validation: { type: Boolean },
         date_with_host: { type: Date },
       },
-    ],
+    
 
     RatingTotal: {
       type: Number,
