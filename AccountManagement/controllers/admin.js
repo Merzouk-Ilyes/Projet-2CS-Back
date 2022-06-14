@@ -3,7 +3,7 @@ const { token } = require('morgan')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer')
 
-const User = require('../models/User')
+const User = require('../models/user')
 
 exports.getAllAccounts = (req, res) => {
   User.find()
