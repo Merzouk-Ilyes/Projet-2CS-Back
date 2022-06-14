@@ -1,23 +1,22 @@
 const User = require('../models/user')
 
-exports.userById = (req, res, next, id) => {
-  User.findById(id).exec((err, user) => {
-    if (!user || err) {
-      return res.status(400).json({
-        error: "user not found",
-      });
-    }
-    req.profile = user;
-    next();
-  });
-};
+exports.userById = (req, res, next) => {
+  let { id } = req.body
+  User.findById(id)
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 exports.read = (req, res) => {
-  req.profile.hashed_password = undefined;
-  req.profile.salt = undefined;
+  req.profile.hashed_password = undefined
+  req.profile.salt = undefined
 
-  return res.json(req.profile);
-};
+  return res.json(req.profile)
+}
 
 exports.update = (req, res) => {
   User.findByIdAndUpdate(
@@ -27,25 +26,46 @@ exports.update = (req, res) => {
     (err, user) => {
       if (err) {
         return res.status(400).json({
-          error: "u do not have the permission",
-        });
+          error: 'u do not have the permission',
+        })
       }
 
-      user.hashed_password = undefined;
-      user.salt = undefined;
-      res.json(user);
+      user.hashed_password = undefined
+      user.salt = undefined
+      res.json(user)
     }
-  );
-};
-
-
+  )
+}
 
 exports.getAgents = (req, res) => {
-  
-  User.find({role:1}).then((users) => {
-    res.json(users);
+  User.find({ role: 1 })
+    .then((users) => {
+      res.json(users)
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+}
 
-  }).catch(err => {
-    console.error(err);
-  })
+exports.addFavourite = (req, res) => {
+  let { userId } = req.query
+  let { postId } = req.query
+  console.log(postId)
+  User.findOneAndUpdate(
+    { _id: userId },
+    {
+      //  using push to add a new value without losing the old one
+      $push: {
+        favourit: {
+          postId,
+        },
+      },
+    }
+  )
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

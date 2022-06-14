@@ -1,6 +1,8 @@
+const fetch = require('node-fetch')
 const express = require('express')
 const router = express.Router()
 const raccoon = require('raccoon')
+const Post = require('../models/Post')
 
 raccoon.config.nearestNeighbors = 5
 raccoon.config.className = 'Post'
@@ -63,28 +65,36 @@ router.post('/setfeedback', SetFeedBack)
 router.post('/assignAgent', assignAgent)
 router.get('/getfeedbackbyidagent', GetFeedBackByIdAgent)
 
-router.get('/rec/:id', (req, res) => {
-  console.log(`the result is `)
-
+router.get('/rec/:id', async (req, res) => {
+  let tab = []
+  let tab2 = []
   raccoon
     .recommendFor(req.params.id, 5)
-    .then((result) => {
-      console.log(`the result is ${result}`)
-      res.json(result)
-      // res.send(result)
+    .then(async (result) => {
+      await Post.find({ _id: result }).then((ress) => {
+        res.send(ress)
+      })
     })
     .catch((err) => {
       console.log(err)
     })
 })
 
-router.post('/liked/:userId/:postId', (req, res) => {
-  let { userId, postId } = req.params
+router.post('/liked', async (req, res) => {
+  let { userId, postId } = req.body
+
   raccoon
     .liked(userId, postId)
     .then(() => {
-      console.log('user ' + userId + ' liked hotel: ' + postId)
-      res.send('user ' + userId + ' liked : ' + postId)
+      let body = { userId, postId }
+      fetch(`http://localhost:8000/addfav?postId=${postId}&userId=${userId}`, {
+        method: 'POST',
+        body: body,
+      })
+        .then(res.send('user ' + userId + ' liked : ' + postId))
+        .catch((err) => {
+          console.log(err)
+        })
     })
     .catch((err) => console.log(err))
 })

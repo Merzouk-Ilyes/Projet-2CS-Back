@@ -42,12 +42,19 @@ exports.findAllPosts = async (req, res) => {
 exports.findPostById = async (req, res) => {
   const id = req.params.id
   const host = []
-  const post = Post.findById(id)
-  fetch('http://localhost:8002/userreserved?idpost=' + id_post)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
+  Post.findById(id)
+    .then((result) => {
+      res.json(id)
     })
+    .catch((err) => {
+      console
+    })
+
+  // fetch('http://localhost:8002/userreserved?idpost=' + id_post)
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
 }
 
 /* method used when see more button in clicked */
@@ -217,8 +224,8 @@ exports.percent = async (req, res) => {
 
 //signaler post
 exports.signalerpost = async (req, res) => {
-  const id_post = req.query.post
-  const id_user = req.query.iduser //we should get the value from the rqst
+  const id_post = req.body.post
+  const id_user = req.body.iduser //we should get the value from the rqst
   const reson = req.body.reson //the value from the rating board
   const modifiedPost = Post.findById(id_post)
   const description = req.body.description

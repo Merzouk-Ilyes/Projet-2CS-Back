@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { userById,getAgents } = require('../controllers/user')
+const { userById, getAgents, addFavourite } = require('../controllers/user')
 
 router.post('/userById', userById)
-router.get('/getAgents',getAgents)
+router.post('/addfav', addFavourite)
+
+router.get('/getAgents', getAgents)
 
 module.exports = router

@@ -24,6 +24,7 @@
     "nodemon": "^2.0.15",
     "raccoon": "^0.2.8",
     "redis": "^4.1.0",
-    "redis-server": "^1.2.2"
+    "redis-server": "^1.2.2",
+    "uuid": "^8.3.2"
   }
 }

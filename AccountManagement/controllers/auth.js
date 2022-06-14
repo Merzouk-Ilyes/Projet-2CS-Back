@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
       type: 'OAuth2',
       user: 'medzino85@gmail.com',
       accessToken:
-      'ya29.a0ARrdaM8z-GPzzlJo5cBWpm7W0NSigqyLGvGrCpjPf0mqvLrADWW5K3RiwMkzCRi_QI3e9oGm4m2H7FtctAZKuriKXy56VJXxPtJDkGrC_xt0drA06RJJW9prPa_HLdXCRWxbcnwQSPlBPTG-dcIg9je6LEx7hQ'
+        'ya29.a0ARrdaM-X2ct4YpkZ5hdLLhZ3sfJnPfDPkT4IglGSJTBnOlwFaxVMwa1ad70UORjI95zJfR1kbMLuzNTBRwXgSKnw4gTXpwUrSLiuw4nk7LUK91ltASo5dn_jYWPcGJO5-UxrKfyhBFdayLk5j9epHFWSFIJo',
     },
   })
 
@@ -75,8 +75,7 @@ exports.login = (req, res) => {
         err: 'Wrong password',
       })
     }
-    if(user.emailVerified) {
-
+    if (user.emailVerified) {
       const token = jwt.sign({ _id: user.id }, process.env.JWT_SECRET)
       res.cookie('token', token, { expire: new Date() + 9999 })
       return res.json({ token, user: { user } })
