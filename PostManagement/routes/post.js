@@ -8,6 +8,7 @@ raccoon.config.nearestNeighbors = 5
 raccoon.config.className = 'Post'
 raccoon.config.numOfRecStore = 30
 
+
 const {
   stats,
   addpost,

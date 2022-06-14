@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const logger = require('morgan')
-const Notification = require('../AccountManagement/models/notification')
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')

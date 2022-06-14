@@ -1,28 +1,48 @@
 version: '3'
 services:
-  gateway:
-     image: gateway
-     ports:
-       - 7777:7777
-     environment:
-        profile: "default"
-     restart: on-failure
+   gateway:
+      image: gateway
+      ports:
+         - 7777:7777
+      environment:
+         profile: "default"
+      restart: on-failure
 
-  account:
-     image: account-management
-     depends_on:
-        - gateway
-     ports:
-       - 8000:8000
-     environment:
-        profile: "default"
-     restart: on-failure  
-  post:
-     image: post-management
-     depends_on:
-        - gateway
-     ports:
-       - 8001:8001
-     environment:
-        profile: "default"
-     restart: on-failure 
+   account:
+      image: account-management
+      depends_on:
+         - gateway
+      ports:
+         - 8000:8000
+      environment:
+         profile: "default"
+      restart: on-failure  
+   post:
+      image: post-management
+      depends_on:
+         - gateway
+         - redis
+      ports:
+         - 8001:8001
+      links:
+         - redis
+      environment:
+         profile: "default"
+      restart: on-failure 
+   redis:
+      image: redis:latest
+      ports:
+         - "6379:6379"
+      
+      
+      
+      
+   reservations:
+      image: reservation-management
+      depends_on:
+         - gateway
+      ports:
+         - 8002:8002
+      environment:
+         profile: "default"
+      restart: on-failure 

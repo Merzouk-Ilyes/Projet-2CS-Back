@@ -13,7 +13,7 @@ const GetIdHostByIdPost = (idpost) => {
          })
       
    }); 
-}
+} 
 exports.addnotification = async (req, res) => {
 const post = req.query.post;
 console.log("the req is : " + req.query.post);
