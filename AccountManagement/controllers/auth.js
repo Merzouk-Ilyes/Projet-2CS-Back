@@ -17,7 +17,7 @@ exports.signup = async (req, res) => {
       type: 'OAuth2',
       user: 'medzino85@gmail.com',
       accessToken:
-        'ya29.a0ARrdaM-ltbBS2VLK1ccIYSQVpnqhVRbUqXAKHzGFBGgihSILDnMKKegnqov8NMdr-1kNHbsEwLNt8OPONDsGnVCNc4cAm07k5-yRfHjMnRZ--aRPbs7v5XTaO2GKS1dNTNuzakcihTBtETqvbEq3eDmmmF25',
+        'ya29.a0ARrdaM-X2ct4YpkZ5hdLLhZ3sfJnPfDPkT4IglGSJTBnOlwFaxVMwa1ad70UORjI95zJfR1kbMLuzNTBRwXgSKnw4gTXpwUrSLiuw4nk7LUK91ltASo5dn_jYWPcGJO5-UxrKfyhBFdayLk5j9epHFWSFIJo',
     },
   })
 

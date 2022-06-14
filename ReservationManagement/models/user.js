@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const crypto = require("crypto");
-const uuidv1 = require("uuid");
-const Reservation = require("../models/reservation");
+const mongoose = require('mongoose')
+const crypto = require('crypto')
+const uuidv1 = require('uuid')
+const Reservation = require('../models/reservation')
 
 const userSchema = new mongoose.Schema(
   {
@@ -57,48 +57,45 @@ const userSchema = new mongoose.Schema(
     },
 
     favourit: {
-      type: Array,
+      type: [String],
       default: [],
     },
-    reservations:[{type: mongoose.Schema.Types.ObjectId,ref:Reservation}],
+    reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: Reservation }],
     image: {
       type: String,
       default:
-        "https://www.kindpng.com/picc/m/9-93879_computer-icons-user-image-person-silhouette-user-silhouettes.png",
+        'https://www.kindpng.com/picc/m/9-93879_computer-icons-user-image-person-silhouette-user-silhouettes.png',
     },
     salt: String,
   },
   { timestamps: true }
-);
+)
 
 // virtual field
 userSchema
-  .virtual("password")
+  .virtual('password')
   .set(function (password) {
-    this._password = password;
-    this.salt = uuidv1.v1();
-    this.hashed_password = this.encryptPassword(password);
+    this._password = password
+    this.salt = uuidv1.v1()
+    this.hashed_password = this.encryptPassword(password)
   })
   .get(function () {
-    return this._password;
-  });
+    return this._password
+  })
 
 userSchema.methods = {
   authenticate: function (plainText) {
-    return this.encryptPassword(plainText) === this.hashed_password;
+    return this.encryptPassword(plainText) === this.hashed_password
   },
 
   encryptPassword: function (password) {
-    if (!password) return "";
+    if (!password) return ''
     try {
-      return crypto
-        .createHmac("sha1", this.salt)
-        .update(password)
-        .digest("hex");
+      return crypto.createHmac('sha1', this.salt).update(password).digest('hex')
     } catch (err) {
-      return "";
+      return ''
     }
   },
-};
+}
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema)

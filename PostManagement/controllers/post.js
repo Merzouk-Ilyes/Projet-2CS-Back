@@ -217,8 +217,8 @@ exports.percent = async (req, res) => {
 
 //signaler post
 exports.signalerpost = async (req, res) => {
-  const id_post = req.query.post
-  const id_user = req.query.iduser //we should get the value from the rqst
+  const id_post = req.body.post
+  const id_user = req.body.iduser //we should get the value from the rqst
   const reson = req.body.reson //the value from the rating board
   const modifiedPost = Post.findById(id_post)
   const description = req.body.description
