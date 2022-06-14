@@ -1,4 +1,4 @@
-const Post = require('../models/Post')
+const Post = require('../models/post.js')
 const fetch = require('node-fetch')
 const { post } = require('../routes/post')
 const notification = require('./notification')

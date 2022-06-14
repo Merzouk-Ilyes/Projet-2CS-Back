@@ -75,7 +75,7 @@ exports.PostHasReservations = async (req, res) => {
 // get reservation by id host
 exports.getReservationByIdHost = async (req, res) => {
   const idHost = req.body.id
-  Reservation.find({ id_host: idHost })
+  Reservation.find({ id_user: idHost })
     .then((result) => {
       res.json({ result })
     })

@@ -30,8 +30,8 @@ const {
 const { addrating, addcomment } = require('../controllers/rating')
 const {
   addnotification,
-} = require('../../AccountManagement/controllers/notification')
-
+} = require('../controllers/notification')
+ 
 router.get('/deletePost', deletePost)
 // router.get('/getRec/:id', getRecomndations)
 // router.post('/likePost/:userId/:postId', likePost)
