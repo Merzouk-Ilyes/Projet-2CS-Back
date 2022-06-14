@@ -65,15 +65,15 @@ router.post('/setfeedback', SetFeedBack)
 router.post('/assignAgent', assignAgent)
 router.get('/getfeedbackbyidagent', GetFeedBackByIdAgent)
 
-router.get('/rec/:id', (req, res) => {
-  console.log(`the result is `)
-
+router.get('/rec/:id', async (req, res) => {
+  let tab = []
+  let tab2 = []
   raccoon
     .recommendFor(req.params.id, 5)
-    .then((result) => {
-      console.log(`the result is ${result}`)
-      res.json(result)
-      res.send(result)
+    .then(async (result) => {
+      await Post.find({ _id: result }).then((ress) => {
+        res.send(ress)
+      })
     })
     .catch((err) => {
       console.log(err)

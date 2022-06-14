@@ -42,12 +42,19 @@ exports.findAllPosts = async (req, res) => {
 exports.findPostById = async (req, res) => {
   const id = req.params.id
   const host = []
-  const post = Post.findById(id)
-  fetch('http://localhost:8002/userreserved?idpost=' + id_post)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data)
+  Post.findById(id)
+    .then((result) => {
+      res.json(id)
     })
+    .catch((err) => {
+      console.log(err)
+    })
+
+  // fetch('http://localhost:8002/userreserved?idpost=' + id_post)
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
 }
 
 /* method used when see more button in clicked */
@@ -64,13 +71,14 @@ exports.findPostByIdHost = async (req, res) => {
 }
 
 exports.findPostById = async (req, res) => {
-  const id = req.params.id
-  Post.findById(id)
-    .then((result) => {
-      res.json({ result })
+  const { id } = req.query
+  await Post.findOne({ _id: id })
+    .then((ress) => {
+      console.log(ress)
+      res.send(ress)
     })
     .catch((err) => {
-      res.send(err)
+      console.log(err)
     })
 }
 //this method can be used to return agent's posts by id,host's posts by id ..
