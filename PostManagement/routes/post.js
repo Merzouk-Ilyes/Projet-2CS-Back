@@ -71,7 +71,7 @@ router.get('/rec/:id', (req, res) => {
     .then((result) => {
       console.log(`the result is ${result}`)
       res.json(result)
-      res.send(result)
+      // res.send(result)
     })
     .catch((err) => {
       console.log(err)
