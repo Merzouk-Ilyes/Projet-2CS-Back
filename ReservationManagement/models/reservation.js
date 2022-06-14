@@ -30,10 +30,13 @@ const reservationSchema = new mongoose.Schema(
     },
     id_host: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: User,
+      
     },
 
     id_post: {
+      type: String,
+    },
+    amount: {
       type: String,
     },
   },

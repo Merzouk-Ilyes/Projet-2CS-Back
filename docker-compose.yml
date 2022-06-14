@@ -1,0 +1,28 @@
+version: '3'
+services:
+  gateway:
+     image: gateway
+     ports:
+       - 7777:7777
+     environment:
+        profile: "default"
+     restart: on-failure
+
+  account:
+     image: account-management
+     depends_on:
+        - gateway
+     ports:
+       - 8000:8000
+     environment:
+        profile: "default"
+     restart: on-failure  
+  post:
+     image: post-management
+     depends_on:
+        - gateway
+     ports:
+       - 8001:8001
+     environment:
+        profile: "default"
+     restart: on-failure 

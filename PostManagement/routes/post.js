@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 const express = require('express')
 const router = express.Router()
 const raccoon = require('raccoon')
-const Post = require('../models/Post')
+const Post = require('../models/post')
 
 raccoon.config.nearestNeighbors = 5
 raccoon.config.className = 'Post'
@@ -72,7 +72,7 @@ router.get('/rec/:id', async (req, res) => {
     .recommendFor(req.params.id, 5)
     .then(async (result) => {
       await Post.find({ _id: result }).then((ress) => {
-        res.send(ress)
+        res.json(ress)
       })
     })
     .catch((err) => {
