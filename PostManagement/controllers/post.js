@@ -47,7 +47,7 @@ exports.findPostById = async (req, res) => {
       res.json(id)
     })
     .catch((err) => {
-      console.log(err)
+      console
     })
 
   // fetch('http://localhost:8002/userreserved?idpost=' + id_post)
@@ -71,14 +71,13 @@ exports.findPostByIdHost = async (req, res) => {
 }
 
 exports.findPostById = async (req, res) => {
-  const { id } = req.query
-  await Post.findOne({ _id: id })
-    .then((ress) => {
-      console.log(ress)
-      res.send(ress)
+  const id = req.params.id
+  Post.findById(id)
+    .then((result) => {
+      res.json({ result })
     })
     .catch((err) => {
-      console.log(err)
+      res.send(err)
     })
 }
 //this method can be used to return agent's posts by id,host's posts by id ..
