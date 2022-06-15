@@ -3,12 +3,11 @@ const express = require('express')
 const router = express.Router()
 const raccoon = require('raccoon')
 const Post = require('../models/post')
-
+ 
 raccoon.config.nearestNeighbors = 5
 raccoon.config.className = 'Post'
 raccoon.config.numOfRecStore = 30
-
-
+   
 const {
   stats,
   addpost,
@@ -52,7 +51,6 @@ router.get('/findPostById/:id', findPostById)
 router.patch('/UpdatePostById/:id', UpdatePostById)
 router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
 
-//agent
 //agent
 router.post('/setdate', SetDate)
 router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)

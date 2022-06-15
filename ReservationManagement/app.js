@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const port = process.env.port || 8002
+const port = process.env.port || 8002 
 
 const reservationRoutes = require('./routes/reservation')
 mongoose

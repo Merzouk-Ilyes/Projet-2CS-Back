@@ -4,12 +4,12 @@ exports.userById = (req, res, next) => {
   let { id } = req.body
   User.findById(id)
     .then((result) => {
-      res.send(result)
+      res.send(result) 
     })
     .catch((err) => {
       console.log(err)
     })
-}
+} 
 
 exports.read = (req, res) => {
   req.profile.hashed_password = undefined
