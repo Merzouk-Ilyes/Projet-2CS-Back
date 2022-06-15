@@ -1,4 +1,4 @@
-const Post = require('../models/Post')
+const Post = require('../models/post.js')
 const fetch = require('node-fetch')
 const { post } = require('../routes/post')
 const notification = require('./notification')
@@ -7,7 +7,7 @@ exports.addpost = async (req, res) => {
   const post = new Post(req.body)
   await post.save((err, post) => {
     if (err) {
-      res.json(err)
+      res.json(err) 
     } else {
       res.json(post)
     }
@@ -381,18 +381,19 @@ exports.EditPost = async (req, res) => {
 
 //add feed back by agent here we r not sheckig the agent's id cause they will be filterd by id agent in the first place
 exports.SetFeedBack = async (req, res) => {
-  const id_post = req.query.post
+  const id_post = req.body.post
   const description = req.body.description
-  const validation = req.body.validation
+  // const validation = req.body.validation
   const modifiedPost = Post.findById(id_post)
+  console.log(modifiedPost)
   Post.updateOne(modifiedPost, {
     $set: {
       'feedBack.description': description,
-      'feedBack.validation': validation,
+      // 'feedBack.validation': validation,
     },
   })
     .then((result) => {
-      res.json({ msg: 'feedback seted' }) //return success msg
+      res.json({ msg: 'feedback has been set ' }) //return success msg
     })
     .catch((err) => {
       res.send(err) //return err type

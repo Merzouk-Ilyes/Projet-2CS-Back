@@ -1,4 +1,4 @@
-const Post = require('../models/Post')
+const Post = require('../models/post')
 var mongoose = require('mongoose')
 const fetch = require('node-fetch')
 const raccoon = require('raccoon')

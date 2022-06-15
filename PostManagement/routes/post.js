@@ -2,12 +2,12 @@ const fetch = require('node-fetch')
 const express = require('express')
 const router = express.Router()
 const raccoon = require('raccoon')
-const Post = require('../models/Post')
-
+const Post = require('../models/post')
+ 
 raccoon.config.nearestNeighbors = 5
 raccoon.config.className = 'Post'
 raccoon.config.numOfRecStore = 30
-
+   
 const {
   stats,
   addpost,
@@ -33,8 +33,8 @@ const {
 const { addrating, addcomment } = require('../controllers/rating')
 const {
   addnotification,
-} = require('../../AccountManagement/controllers/notification')
-
+} = require('../controllers/notification')
+ 
 router.get('/deletePost', deletePost)
 // router.get('/getRec/:id', getRecomndations)
 // router.post('/likePost/:userId/:postId', likePost)
@@ -55,7 +55,6 @@ router.patch('/UpdatePostById/:id', UpdatePostById)
 router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
 
 //agent
-//agent
 router.post('/setdate', SetDate)
 router.patch('/UpdatePostAvailability/:id', UpdatePostAvailability)
 router.post('/DeclinePostWithReason', DeclinePostWithReason)
@@ -75,7 +74,7 @@ router.get('/rec/:id', async (req, res) => {
     .recommendFor(req.params.id, 5)
     .then(async (result) => {
       await Post.find({ _id: result }).then((ress) => {
-        res.send(ress)
+        res.json(ress)
       })
     })
     .catch((err) => {

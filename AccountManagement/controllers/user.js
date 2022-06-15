@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../models/user')
 
 exports.userById = (req, res, next) => {
   let { id } = req.params
@@ -15,12 +15,12 @@ exports.userById2 = (req, res, next) => {
   let { id } = req.params
   User.findById(id)
     .then((result) => {
-      res.send(result)
+      res.send(result) 
     })
     .catch((err) => {
       console.log(err)
     })
-}
+} 
 
 exports.read = (req, res) => {
   req.profile.hashed_password = undefined

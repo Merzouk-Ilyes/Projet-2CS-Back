@@ -1,0 +1,7 @@
+FROM node:14.15.5
+
+COPY . .
+
+EXPOSE 8001
+
+CMD ["npm","start"]

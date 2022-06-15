@@ -4,7 +4,7 @@ const { signup, login, logout } = require('../controllers/auth')
 
 const {
   getNotificationByidHost,
-} = require('../../AccountManagement/controllers/notification')
+} = require('../controllers/notification')
 const { addnotification, test } = require('../controllers/notification')
 
 const {

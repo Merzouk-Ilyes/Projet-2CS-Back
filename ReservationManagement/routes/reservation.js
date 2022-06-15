@@ -1,5 +1,5 @@
 const express = require('express')
-const Notification = require('../../AccountManagement/models/notification')
+// const Notification = require('../../AccountManagement/models/notification')
 
 const router = express.Router()
 const {
@@ -14,7 +14,7 @@ router.post('/addreservation', addreservation)
 router.post('/deletereservation', deletereservation)
 router.get('/userreserved', UserReserved)
 router.get('/PostHasReservations', PostHasReservations)
-router.get('/getReservationByIdHost', getReservationByIdHost)
+router.get('/getReservationByIdHost/:id', getReservationByIdHost)
 
 router.post('/ChangeReservationStatus', ChangeReservationStatus)
 module.exports = router

@@ -1,0 +1,7 @@
+FROM node:14.15.5
+
+COPY . .
+RUN NODE_OPTIONS="--max-old-space-size=8192"
+EXPOSE 8002
+
+CMD ["npm","start"]

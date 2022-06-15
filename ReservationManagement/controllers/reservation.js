@@ -1,6 +1,6 @@
 const Reservation = require('../models/reservation')
-const fetch = require('node-fetch')
-const Notification = require('../../AccountManagement/models/notification')
+// const fetch = require('node-fetch')
+// const Notification = require('../../AccountManagement/models/notification')
 
 //add reservation with a notification type 0
 exports.addreservation = async (req, res) => {
@@ -79,8 +79,8 @@ exports.PostHasReservations = async (req, res) => {
 
 // get reservation by id host
 exports.getReservationByIdHost = async (req, res) => {
-  const idHost = req.body.id
-  Reservation.find({ id_host: idHost })
+  const idHost = req.params.id
+  Reservation.find({ id_user: idHost })
     .then((result) => {
       res.json({ result })
     })

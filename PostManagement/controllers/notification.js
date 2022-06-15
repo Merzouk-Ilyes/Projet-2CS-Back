@@ -1,6 +1,6 @@
 const Notification = require("../models/notification");
 const fetch = require('node-fetch');
-const Post = require("../models/Post");
+const Post = require("../models/post");
 //since there are so many types of notifications and to make the code more clean we'll set a group of functions to hndl these types ! 
 const GetIdHostByIdPost = (idpost) => {
    return new Promise((resolve, reject) => {
@@ -12,8 +12,8 @@ const GetIdHostByIdPost = (idpost) => {
             return resolve(result[0].idUser);
          })
       
-   });
-}
+   }); 
+} 
 exports.addnotification = async (req, res) => {
 const post = req.query.post;
 console.log("the req is : " + req.query.post);
@@ -81,5 +81,5 @@ const src = req.query.src;
          }
        });
    }  
-   
+
   };

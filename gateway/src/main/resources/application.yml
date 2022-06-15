@@ -17,16 +17,16 @@ spring:
             - Path=/account/**
           filters:
             - RewritePath=/account/(?<s>.*), /${s}
-          uri: http://localhost:8000/
+          uri: http://host.docker.internal:8000/
         - id: route2
           predicates:
             - Path=/posts/**
           filters:
             - RewritePath=/posts/(?<s>.*), /${s}
-          uri: http://localhost:8001/
+          uri: http://host.docker.internal:8001/
         - id: route3
           predicates:
             - Path=/reservations/**
           filters:
             - RewritePath=/reservations/(?<s>.*), /${s}
-          uri: http://localhost:8002/
+          uri: http://host.docker.internal:8002/
