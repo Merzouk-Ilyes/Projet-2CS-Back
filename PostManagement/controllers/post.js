@@ -428,3 +428,25 @@ exports.assignAgent = async (req, res) => {
       res.send(err)
     })
 }
+
+exports.getWishlist = async (req, res) => {
+  const { idUser, idPost } = req.body
+  let isliked = false
+  let body = { idPost }
+
+  fetch(`http://localhost:8000/userById2/${idUser}`, {
+    method: 'POST',
+    body,
+  }).then((ress) => {
+    // ress.favourit
+    //   .map((idd) => {
+    //     if ((idPost = idd.postId)) {
+    //       isliked = true
+    //     }
+    //   })
+    //   .then((res) => {
+    //     res.send(isliked)
+    //   })
+    res.send(ress)
+  })
+}

@@ -27,6 +27,7 @@ const {
   assignAgent,
   DeclinePostWithReason,
   EditPost,
+  getWishlist,
 } = require('../controllers/post')
 
 const { addrating, addcomment } = require('../controllers/rating')
@@ -41,6 +42,8 @@ router.get('/deletePost', deletePost)
 router.post('/addnotification', addnotification)
 router.post('/findPostByIdHost', findPostByIdHost)
 router.post('/signalerpost', signalerpost)
+router.post('/getwishlist', getWishlist)
+
 router.get('/stats', stats)
 router.get('/percent', percent)
 router.put('/addrating', addrating)

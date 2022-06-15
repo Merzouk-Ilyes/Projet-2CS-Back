@@ -1,7 +1,18 @@
 const User = require('../models/User')
 
 exports.userById = (req, res, next) => {
-  let { id } = req.body
+  let { id } = req.params
+  User.findById(id)
+    .then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+exports.userById2 = (req, res, next) => {
+  let { id } = req.params
   User.findById(id)
     .then((result) => {
       res.send(result)
