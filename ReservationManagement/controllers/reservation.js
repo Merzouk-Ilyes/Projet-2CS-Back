@@ -11,6 +11,7 @@ exports.addreservation = async (req, res) => {
   const nom_user = req.body.nom_user
   const id_host = req.body.id_host
   var post = req.body.id_post
+  var amount = req.body.amount
   console.log(iduser)
   const reservation = new Reservation({
     startDate: datedb,
@@ -21,6 +22,7 @@ exports.addreservation = async (req, res) => {
     id_post: post,
     nom_user: nom_user,
     id_host: id_host,
+    amount:amount
   })
   reservation
     .save()
