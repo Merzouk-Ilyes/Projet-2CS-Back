@@ -1,17 +1,50 @@
 const Post = require('../models/post.js')
 const fetch = require('node-fetch')
-const { post } = require('../routes/post')
 const notification = require('./notification')
 /* the host only can use this method when he is validated*/
 exports.addpost = async (req, res) => {
-  const post = new Post(req.body)
-  await post.save((err, post) => {
-    if (err) {
-      res.json(err) 
-    } else {
-      res.json(post)
-    }
+  var {
+    title,
+    idUser,
+    city,
+    street,
+    nbrBeds,
+    nbrBathes,
+    space,
+    PricePerNight,
+    description,
+  } = req.body
+  var { furnish, gas, electricty, water, type, images, nameUser } = req.body
+
+  const post = new Post({
+    title: title,
+    idUser: idUser,
+    city: city,
+    street: street,
+    nbrBeds: nbrBeds,
+    nbrBathes: nbrBathes,
+    space: space,
+    PricePerNight: PricePerNight,
+    description: description,
+    furnish: furnish,
+    gas: gas,
+    electricty: electricty,
+    water: water,
+    type: type,
+    images: images,
+    nameUser: nameUser,
   })
+
+  post
+    .save()
+    .then((result) => {
+      console.log(post)
+      res.json(result)
+    })
+    .catch((err) => {
+      res.send(err)
+      console.log(err)
+    })
 }
 /*this method could be used in the consultation page(see all posts) with no recommendation*/
 exports.findAllPosts = async (req, res) => {

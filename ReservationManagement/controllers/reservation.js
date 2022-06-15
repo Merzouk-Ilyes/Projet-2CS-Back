@@ -18,15 +18,15 @@ exports.addreservation = async (req, res) => {
     endDate: datefn,
     people: people,
     id_user: iduser,
-
     id_post: post,
     nom_user: nom_user,
     id_host: id_host,
-    amount:amount
+    amount: amount,
   })
   reservation
     .save()
     .then((result) => {
+      console.log('it happend')
       res.json(result)
     })
     .catch((err) => {

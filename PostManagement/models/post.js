@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema(
   {
     title: {
@@ -13,17 +13,11 @@ const postSchema = new mongoose.Schema(
     },
     idUser: {
       type: mongoose.Schema.Types.ObjectId,
-      // required: true,
     },
 
     nameUser: {
       type: String,
       required: true,
-    },
-    imageUser: {
-      type: String,
-      default:"https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
-
     },
 
     // not verefied 0  ---- verefied 1 ----- declined 2
@@ -52,21 +46,19 @@ const postSchema = new mongoose.Schema(
     ],
     signal: [
       {
-        etat: { type: String, default: "waiting" }, //etate["waiting","solved"]
+        etat: { type: String, default: 'waiting' }, //etate["waiting","solved"]
         date: { type: Date, default: new Date() },
         description: { type: String },
         reson: { type: String },
         clientId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
-    feedBack: 
-      {
-        agent: { type: mongoose.Schema.Types.ObjectId },
-        description: { type: String },
-        validation: { type: Boolean },
-        date_with_host: { type: Date },
-      },
-    
+    feedBack: {
+      agent: { type: mongoose.Schema.Types.ObjectId },
+      description: { type: String },
+      validation: { type: Boolean },
+      date_with_host: { type: Date },
+    },
 
     RatingTotal: {
       type: Number,
@@ -118,7 +110,7 @@ const postSchema = new mongoose.Schema(
 
       default: false,
     },
-    electricity: {
+    electricty: {
       type: Boolean,
 
       default: false,
@@ -127,10 +119,10 @@ const postSchema = new mongoose.Schema(
       {
         type: String,
         required: true,
+        salt: String,
       },
     ],
-    salt: String,
   },
   { timestamps: true }
-);
-module.exports = mongoose.model("Post", postSchema);
+)
+module.exports = mongoose.model('Post', postSchema)
